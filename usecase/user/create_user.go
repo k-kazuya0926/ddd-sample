@@ -16,6 +16,12 @@ type createUserUseCase struct {
 	transaction    transaction.Transaction
 }
 
+func NewCreateUserUseCase(userRepository domain.UserRepository) CreateUserUseCase {
+	return &createUserUseCase{
+		userRepository: userRepository,
+	}
+}
+
 type CreateUserUseCaseInput struct {
 	Name string
 }
@@ -52,10 +58,4 @@ func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUs
 		return CreateUserUseCaseDTO{}, err
 	}
 	return CreateUserUseCaseDTO{}, nil
-}
-
-func NewCreateUserUseCase(userRepository domain.UserRepository) CreateUserUseCase {
-	return &createUserUseCase{
-		userRepository: userRepository,
-	}
 }

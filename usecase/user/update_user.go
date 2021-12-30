@@ -16,6 +16,12 @@ type updateUserUseCase struct {
 	transaction    transaction.Transaction
 }
 
+func NewUpdateUserUseCase(userRepository domain.UserRepository) UpdateUserUseCase {
+	return &updateUserUseCase{
+		userRepository: userRepository,
+	}
+}
+
 type UpdateUserUseCaseInput struct {
 	ID   string
 	Name string
@@ -61,10 +67,4 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 		return UpdateUserUseCaseDTO{}, err
 	}
 	return UpdateUserUseCaseDTO{}, nil
-}
-
-func NewUpdateUserUseCase(userRepository domain.UserRepository) UpdateUserUseCase {
-	return &updateUserUseCase{
-		userRepository: userRepository,
-	}
 }
