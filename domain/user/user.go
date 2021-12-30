@@ -5,11 +5,30 @@ type User struct {
 	name string
 }
 
-func NewUser(name string) User {
+// UseCase用
+func NewUser(name string) (User, error) {
+	// TODO validation
+	user := User{
+		id: "", // TODO ULID
+	}
+	err := user.SetName(name)
+	if err != nil {
+		return User{}, err
+	}
+	return user, nil
+}
+
+// DBからの再構築用
+func ReconstructUser(id string, name string) User {
+	// ここはバリデーション不要
 	return User{
-		id:   "", // TODO ULID
+		id:   id,
 		name: name,
 	}
 }
 
-// TODO Reconstruct
+func (u *User) SetName(name string) error {
+	// TODO validation
+	u.name = name
+	return nil
+}

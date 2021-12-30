@@ -1,30 +1,57 @@
 package user
 
-import domain "ddd-sample/domain/user"
+import (
+	"context"
+	"errors"
+
+	domain "ddd-sample/domain/user"
+	"ddd-sample/usecase/transaction"
+)
 
 type CreateUserUseCase interface {
-	Execute(input CreateUserUseCaseInput) (CreateUserUseCaseOutput, error)
-}
-
-type CreateUserUseCaseInput struct { // TODO 名称検討
-	Name string
-}
-
-type CreateUserUseCaseOutput struct { // TODO 名称検討
+	Execute(input CreateUserUseCaseInput) (CreateUserUseCaseDTO, error)
 }
 
 type createUserUseCase struct {
 	userRepository domain.UserRepository
-	// TODO domain service
+	transaction    transaction.Transaction
 }
 
-func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUseCaseOutput, error) {
-	user := domain.NewUser(input.Name)
-	err := uc.userRepository.Insert(user)
+type CreateUserUseCaseInput struct {
+	Name string
+}
+
+type CreateUserUseCaseDTO struct {
+}
+
+func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUseCaseDTO, error) {
+	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
+		user, err := domain.NewUser(input.Name)
+		if err != nil {
+			return err
+		}
+
+		// 重複チェック
+		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)
+		userExists, err := userDuplicationChecker.Exists(user)
+		if err != nil {
+			return err
+		}
+		if userExists {
+			return errors.New("Duplicate user exists.")
+		}
+
+		err = uc.userRepository.Insert(user)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
 	if err != nil {
-		return CreateUserUseCaseOutput{}, err
+		return CreateUserUseCaseDTO{}, err
 	}
-	return CreateUserUseCaseOutput{}, nil
+	return CreateUserUseCaseDTO{}, nil
 }
 
 func NewCreateUserUseCase(userRepository domain.UserRepository) CreateUserUseCase {
