@@ -12,8 +12,8 @@ type UpdateUserUseCase interface {
 }
 
 type updateUserUseCase struct {
-	userRepository domain.UserRepository
 	transaction    transaction.Transaction
+	userRepository domain.UserRepository
 }
 
 func NewUpdateUserUseCase(userRepository domain.UserRepository) UpdateUserUseCase {

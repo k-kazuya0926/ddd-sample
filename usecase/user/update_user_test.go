@@ -81,14 +81,14 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			mockCtrl := gomock.NewController(t)
 			defer mockCtrl.Finish()
 
+			mockUserRepository := mock_user.NewMockUserRepository(mockCtrl)
 			// 参考記事「gomockを完全に理解する」
 			// https://zenn.dev/sanpo_shiho/articles/01da627ead98f5
-			mockUserRepository := mock_user.NewMockUserRepository(mockCtrl)
 			tt.prepareMockFn(mockUserRepository)
 
 			uc := &updateUserUseCase{
-				userRepository: mockUserRepository,
 				transaction:    &transaction.NoopTransaction{},
+				userRepository: mockUserRepository,
 			}
 			got, err := uc.Execute(tt.args.input)
 			if (err != nil) != tt.wantErr { // エラーがある、かつ期待結果と一致しない場合

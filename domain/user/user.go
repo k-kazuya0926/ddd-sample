@@ -2,19 +2,12 @@ package user
 
 // エンティティ
 type User struct {
+	// 属性はパッケージプライベート
 	id   string
 	name UserName
 }
 
-// UseCase用
-func NewUser(name UserName) User {
-	return User{
-		id:   "", // TODO ULID
-		name: name,
-	}
-}
-
-// DBからの再構築用
+// リポジトリ経由の再構築およびテストコード用コンストラクタ
 func ReconstructUser(id string, name UserName) User {
 	return User{
 		id:   id,
