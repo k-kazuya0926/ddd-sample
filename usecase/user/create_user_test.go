@@ -2,6 +2,7 @@ package user
 
 import (
 	domain "ddd-sample/domain/user"
+	"ddd-sample/domain/user/mock_user"
 	"ddd-sample/usecase/transaction"
 	"reflect"
 	"testing"
@@ -11,7 +12,7 @@ import (
 
 func Test_createUserUseCase_Execute(t *testing.T) {
 	var (
-		dummyUserID   = "1"
+		dummyUserID   = "" // TODO
 		dummyUserName = "ダミーユーザー"
 	)
 	type args struct {
@@ -19,14 +20,14 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 	}
 	tests := []struct {
 		name          string
-		prepareMockFn func(m *domain.MockUserRepository)
+		prepareMockFn func(m *mock_user.MockUserRepository)
 		args          args
 		want          CreateUserUseCaseDTO
 		wantErr       bool
 	}{
 		{
 			name: "正常系",
-			prepareMockFn: func(mockUserRepository *domain.MockUserRepository) {
+			prepareMockFn: func(mockUserRepository *mock_user.MockUserRepository) {
 				userName, _ := domain.NewUserName(dummyUserName)
 				mockUserRepository.EXPECT().FindByName(userName).Return(nil, nil)
 				mockUserRepository.EXPECT().Insert(domain.ReconstructUser(dummyUserID, userName)).Return(nil)
@@ -41,7 +42,7 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 		},
 		{
 			name: "異常系：ユーザー重複",
-			prepareMockFn: func(mockUserRepository *domain.MockUserRepository) {
+			prepareMockFn: func(mockUserRepository *mock_user.MockUserRepository) {
 				userName, _ := domain.NewUserName(dummyUserName)
 				duplicateUser := domain.ReconstructUser(dummyUserID, userName)
 				mockUserRepository.EXPECT().FindByName(userName).Return(&duplicateUser, nil)
@@ -63,7 +64,7 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 
 			// 参考記事「gomockを完全に理解する」
 			// https://zenn.dev/sanpo_shiho/articles/01da627ead98f5
-			mockUserRepository := domain.NewMockUserRepository(mockCtrl)
+			mockUserRepository := mock_user.NewMockUserRepository(mockCtrl)
 			tt.prepareMockFn(mockUserRepository)
 
 			uc := &createUserUseCase{
