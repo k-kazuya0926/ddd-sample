@@ -2,10 +2,9 @@ package user
 
 import (
 	"context"
-	"errors"
-
 	domain "ddd-sample/domain/user"
 	"ddd-sample/usecase/transaction"
+	"errors"
 )
 
 type UpdateUserUseCase interface {
@@ -32,10 +31,14 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 			return err
 		}
 		if user == nil {
-			return errors.New("User is not found.")
+			return errors.New("ユーザーが存在しません。")
 		}
 
-		user.SetName(input.Name)
+		userName, err := domain.NewUserName(input.Name)
+		if err != nil {
+			return err
+		}
+		user.SetName(userName)
 
 		// 重複チェック
 		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)
@@ -44,7 +47,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 			return err
 		}
 		if userExists {
-			return errors.New("Duplicate user exists.")
+			return errors.New("すでに登録されています。")
 		}
 
 		err = uc.userRepository.Update(*user)

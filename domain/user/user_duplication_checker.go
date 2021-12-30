@@ -1,7 +1,7 @@
 package user
 
 // ドメインサービス
-type UserDuplicationChecker struct { // TODO interfaceを用意するべきか？
+type UserDuplicationChecker struct {
 	userRepository UserRepository
 }
 

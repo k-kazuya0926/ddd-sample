@@ -49,7 +49,7 @@ func (mr *MockUserRepositoryMockRecorder) FindByID(id interface{}) *gomock.Call 
 }
 
 // FindByName mocks base method.
-func (m *MockUserRepository) FindByName(name string) (*User, error) {
+func (m *MockUserRepository) FindByName(name UserName) (*User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByName", name)
 	ret0, _ := ret[0].(*User)

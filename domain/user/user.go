@@ -1,34 +1,27 @@
 package user
 
+// エンティティ
 type User struct {
 	id   string
-	name string
+	name UserName
 }
 
 // UseCase用
-func NewUser(name string) (User, error) {
-	// TODO validation
-	user := User{
-		id: "", // TODO ULID
+func NewUser(name UserName) User {
+	return User{
+		id:   "", // TODO ULID
+		name: name,
 	}
-	err := user.SetName(name)
-	if err != nil {
-		return User{}, err
-	}
-	return user, nil
 }
 
 // DBからの再構築用
-func ReconstructUser(id string, name string) User {
-	// ここはバリデーション不要
+func ReconstructUser(id string, name UserName) User {
 	return User{
 		id:   id,
 		name: name,
 	}
 }
 
-func (u *User) SetName(name string) error {
-	// TODO validation
+func (u *User) SetName(name UserName) {
 	u.name = name
-	return nil
 }
