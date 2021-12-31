@@ -26,4 +26,10 @@ func main() {
 		Name:   "ダミーユーザー2",
 	})
 	fmt.Printf("updateUserResponse: %+v\n", updateUserResponse)
+
+	// ユーザー削除
+	deleteUserResponse := registry.deleteUserHandler.Handle(user.DeleteUserRequest{
+		UserID: createUserResponse.UserID,
+	})
+	fmt.Printf("deleteUserResponse: %+v\n", deleteUserResponse)
 }

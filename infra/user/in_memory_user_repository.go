@@ -51,3 +51,8 @@ func (imur *InMemoryUserRepository) Update(ctx context.Context, user domain.User
 	imur.Store[user.ID()] = user
 	return nil
 }
+
+func (imur *InMemoryUserRepository) Delete(ctx context.Context, id domain.UserID) error {
+	delete(imur.Store, id)
+	return nil
+}

@@ -8,4 +8,5 @@ type UserRepository interface {
 	FindByName(ctx context.Context, name UserName) (*User, error)
 	FindByID(ctx context.Context, id UserID) (*User, error)
 	Update(ctx context.Context, user User) error
+	Delete(ctx context.Context, id UserID) error
 }
