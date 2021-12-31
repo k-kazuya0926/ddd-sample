@@ -15,6 +15,16 @@ func NewInMemoryUserRepository() domain.UserRepository {
 }
 
 func (imur *InMemoryUserRepository) Insert(ctx context.Context, user domain.User) error {
+	/* UserにGetterを設けない場合は次のようにしてUserの内部情報を受け取る
+	// 通知オブジェクトを引き渡して内部データを取得
+	userDataModelBuilder := NewUserDataModelBuilder()
+	user.Notify(&userDataModelBuilder)
+
+	// 通知された内部データからデータモデルを生成
+	userDataModel := userDataModelBuilder.Build()
+	imur.Store[userDataModel.ID] = user
+	*/
+
 	imur.Store[user.ID()] = user
 	return nil
 }
