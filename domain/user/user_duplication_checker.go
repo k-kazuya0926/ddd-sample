@@ -1,5 +1,7 @@
 package user
 
+import "context"
+
 // ドメインサービス
 type UserDuplicationChecker struct {
 	userRepository UserRepository
@@ -9,8 +11,8 @@ func NewUserDuplicationChecker(userRepository UserRepository) UserDuplicationChe
 	return UserDuplicationChecker{userRepository: userRepository}
 }
 
-func (udc *UserDuplicationChecker) Exists(user User) (bool, error) {
-	duplicateUser, err := udc.userRepository.FindByName(user.name)
+func (udc *UserDuplicationChecker) Exists(ctx context.Context, user User) (bool, error) {
+	duplicateUser, err := udc.userRepository.FindByName(ctx, user.name)
 	if err != nil {
 		return false, err
 	}

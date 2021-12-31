@@ -31,10 +31,10 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 		{
 			name: "正常系",
 			prepareMockFn: func(mockUserRepository *mock_user.MockUserRepository) {
-				mockUserRepository.EXPECT().FindByID(dummyUserID).Return(&dummyUser, nil)
+				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(&dummyUser, nil)
 				userName, _ := domain.NewUserName("ダミーユーザー2")
-				mockUserRepository.EXPECT().FindByName(userName).Return(nil, nil)
-				mockUserRepository.EXPECT().Update(domain.ReconstructUser(dummyUserID, userName)).Return(nil)
+				mockUserRepository.EXPECT().FindByName(gomock.Any(), userName).Return(nil, nil)
+				mockUserRepository.EXPECT().Update(gomock.Any(), domain.ReconstructUser(dummyUserID, userName)).Return(nil)
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
@@ -48,7 +48,7 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 		{
 			name: "異常系：ユーザーが存在しない",
 			prepareMockFn: func(mockUserRepository *mock_user.MockUserRepository) {
-				mockUserRepository.EXPECT().FindByID(dummyUserID).Return(nil, nil)
+				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(nil, nil)
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
@@ -62,10 +62,10 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 		{
 			name: "異常系：ユーザー重複",
 			prepareMockFn: func(mockUserRepository *mock_user.MockUserRepository) {
-				mockUserRepository.EXPECT().FindByID(dummyUserID).Return(&dummyUser, nil)
+				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(&dummyUser, nil)
 				userName, _ := domain.NewUserName("ダミーユーザー2")
 				duplicateUser := domain.ReconstructUser(dummyUserID2, userName)
-				mockUserRepository.EXPECT().FindByName(userName).Return(&duplicateUser, nil)
+				mockUserRepository.EXPECT().FindByName(gomock.Any(), userName).Return(&duplicateUser, nil)
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{

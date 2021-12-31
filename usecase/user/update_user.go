@@ -36,7 +36,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 		if err != nil {
 			return err
 		}
-		user, err := uc.userRepository.FindByID(userID)
+		user, err := uc.userRepository.FindByID(ctx, userID)
 		if err != nil {
 			return err
 		}
@@ -52,7 +52,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 
 		// 重複チェック
 		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)
-		userExists, err := userDuplicationChecker.Exists(*user)
+		userExists, err := userDuplicationChecker.Exists(ctx, *user)
 		if err != nil {
 			return err
 		}
@@ -60,7 +60,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 			return errors.New("すでに登録されています。")
 		}
 
-		err = uc.userRepository.Update(*user)
+		err = uc.userRepository.Update(ctx, *user)
 		if err != nil {
 			return err
 		}

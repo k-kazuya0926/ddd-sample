@@ -46,7 +46,7 @@ func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUs
 
 		// 重複チェック
 		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)
-		userExists, err := userDuplicationChecker.Exists(user)
+		userExists, err := userDuplicationChecker.Exists(ctx, user)
 		if err != nil {
 			return err
 		}
@@ -54,7 +54,7 @@ func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUs
 			return errors.New("すでに登録されています。")
 		}
 
-		err = uc.userRepository.Insert(user)
+		err = uc.userRepository.Insert(ctx, user)
 		if err != nil {
 			return err
 		}

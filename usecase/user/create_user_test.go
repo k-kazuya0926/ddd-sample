@@ -32,8 +32,8 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 				userName, _ := domain.NewUserName(dummyUserName)
 				user := domain.ReconstructUser(dummyUserID, userName)
 				mockUserFactory.EXPECT().Create(userName).Return(user)
-				mockUserRepository.EXPECT().FindByName(userName).Return(nil, nil)
-				mockUserRepository.EXPECT().Insert(domain.ReconstructUser(dummyUserID, userName)).Return(nil)
+				mockUserRepository.EXPECT().FindByName(gomock.Any(), userName).Return(nil, nil)
+				mockUserRepository.EXPECT().Insert(gomock.Any(), domain.ReconstructUser(dummyUserID, userName)).Return(nil)
 			},
 			args: args{
 				input: CreateUserUseCaseInput{
@@ -50,7 +50,7 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 				user := domain.ReconstructUser(dummyUserID, userName)
 				mockUserFactory.EXPECT().Create(userName).Return(user)
 				duplicateUser := domain.ReconstructUser(dummyUserID2, userName)
-				mockUserRepository.EXPECT().FindByName(userName).Return(&duplicateUser, nil)
+				mockUserRepository.EXPECT().FindByName(gomock.Any(), userName).Return(&duplicateUser, nil)
 			},
 			args: args{
 				input: CreateUserUseCaseInput{

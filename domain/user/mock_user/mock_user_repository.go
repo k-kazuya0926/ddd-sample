@@ -5,6 +5,7 @@
 package mock_user
 
 import (
+	context "context"
 	user "ddd-sample/domain/user"
 	reflect "reflect"
 
@@ -35,59 +36,59 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // FindByID mocks base method.
-func (m *MockUserRepository) FindByID(id user.UserID) (*user.User, error) {
+func (m *MockUserRepository) FindByID(ctx context.Context, id user.UserID) (*user.User, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindByID", id)
+	ret := m.ctrl.Call(m, "FindByID", ctx, id)
 	ret0, _ := ret[0].(*user.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // FindByID indicates an expected call of FindByID.
-func (mr *MockUserRepositoryMockRecorder) FindByID(id interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) FindByID(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByID", reflect.TypeOf((*MockUserRepository)(nil).FindByID), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByID", reflect.TypeOf((*MockUserRepository)(nil).FindByID), ctx, id)
 }
 
 // FindByName mocks base method.
-func (m *MockUserRepository) FindByName(name user.UserName) (*user.User, error) {
+func (m *MockUserRepository) FindByName(ctx context.Context, name user.UserName) (*user.User, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindByName", name)
+	ret := m.ctrl.Call(m, "FindByName", ctx, name)
 	ret0, _ := ret[0].(*user.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // FindByName indicates an expected call of FindByName.
-func (mr *MockUserRepositoryMockRecorder) FindByName(name interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) FindByName(ctx, name interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByName", reflect.TypeOf((*MockUserRepository)(nil).FindByName), name)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByName", reflect.TypeOf((*MockUserRepository)(nil).FindByName), ctx, name)
 }
 
 // Insert mocks base method.
-func (m *MockUserRepository) Insert(user user.User) error {
+func (m *MockUserRepository) Insert(ctx context.Context, user user.User) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Insert", user)
+	ret := m.ctrl.Call(m, "Insert", ctx, user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Insert indicates an expected call of Insert.
-func (mr *MockUserRepositoryMockRecorder) Insert(user interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) Insert(ctx, user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockUserRepository)(nil).Insert), user)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockUserRepository)(nil).Insert), ctx, user)
 }
 
 // Update mocks base method.
-func (m *MockUserRepository) Update(user user.User) error {
+func (m *MockUserRepository) Update(ctx context.Context, user user.User) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Update", user)
+	ret := m.ctrl.Call(m, "Update", ctx, user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Update indicates an expected call of Update.
-func (mr *MockUserRepositoryMockRecorder) Update(user interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) Update(ctx, user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockUserRepository)(nil).Update), user)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockUserRepository)(nil).Update), ctx, user)
 }
