@@ -3,7 +3,7 @@ package user
 import (
 	domain "ddd-sample/domain/user"
 	"ddd-sample/domain/user/mock_user"
-	"ddd-sample/usecase/transaction"
+	"ddd-sample/infra/transaction"
 	"reflect"
 	"testing"
 
@@ -87,7 +87,7 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			tt.prepareMockFn(mockUserRepository)
 
 			uc := &updateUserUseCase{
-				transaction:    &transaction.NoopTransaction{},
+				transaction:    transaction.NewNoopTransaction(),
 				userRepository: mockUserRepository,
 			}
 			got, err := uc.Execute(tt.args.input)
