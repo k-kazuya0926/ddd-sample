@@ -14,6 +14,12 @@ func main() {
 	})
 	fmt.Printf("createUserResponse: %+v\n", createUserResponse)
 
+	// ユーザー取得
+	fetchUserResponse := registry.fetchUserHandler.Handle(user.FetchUserRequest{
+		UserID: createUserResponse.UserID,
+	})
+	fmt.Printf("fetchUserResponse: %+v\n", fetchUserResponse)
+
 	// ユーザー更新
 	updateUserResponse := registry.updateUserHandler.Handle(user.UpdateUserRequest{
 		UserID: createUserResponse.UserID,

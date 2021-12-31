@@ -20,6 +20,8 @@ func initRegistry() *Registry {
 		infra.NewInMemoryUserRepository,
 		usecase.NewCreateUserUseCase,
 		presentation.NewCreateUserHandler,
+		usecase.NewFetchUserUseCase,
+		presentation.NewFetchUserHandler,
 		usecase.NewUpdateUserUseCase,
 		presentation.NewUpdateUserHandler,
 		NewRegistry,
