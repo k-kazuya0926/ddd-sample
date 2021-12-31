@@ -12,8 +12,9 @@ import (
 
 func Test_createUserUseCase_Execute(t *testing.T) {
 	var (
-		dummyUserID   = "1"
-		dummyUserName = "ダミーユーザー"
+		dummyUserID, _  = domain.ParseUserID("12345678901234567890123456")
+		dummyUserID2, _ = domain.ParseUserID("12345678901234567890123457")
+		dummyUserName   = "ダミーユーザー"
 	)
 	type args struct {
 		input CreateUserUseCaseInput
@@ -48,7 +49,7 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 				userName, _ := domain.NewUserName(dummyUserName)
 				user := domain.ReconstructUser(dummyUserID, userName)
 				mockUserFactory.EXPECT().Create(userName).Return(user)
-				duplicateUser := domain.ReconstructUser("2", userName)
+				duplicateUser := domain.ReconstructUser(dummyUserID2, userName)
 				mockUserRepository.EXPECT().FindByName(userName).Return(&duplicateUser, nil)
 			},
 			args: args{

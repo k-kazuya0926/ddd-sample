@@ -32,7 +32,11 @@ type UpdateUserUseCaseDTO struct {
 
 func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUseCaseDTO, error) {
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
-		user, err := uc.userRepository.FindByID(input.ID)
+		userID, err := domain.ParseUserID(input.ID)
+		if err != nil {
+			return err
+		}
+		user, err := uc.userRepository.FindByID(userID)
 		if err != nil {
 			return err
 		}

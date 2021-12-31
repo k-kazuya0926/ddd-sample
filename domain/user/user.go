@@ -3,12 +3,12 @@ package user
 // エンティティ
 type User struct {
 	// 属性はパッケージプライベート
-	id   string
+	id   UserID
 	name UserName
 }
 
 // リポジトリ経由の再構築およびテストコード用コンストラクタ
-func ReconstructUser(id string, name UserName) User {
+func ReconstructUser(id UserID, name UserName) User {
 	return User{
 		id:   id,
 		name: name,

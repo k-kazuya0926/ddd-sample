@@ -12,9 +12,11 @@ import (
 
 func Test_updateUserUseCase_Execute(t *testing.T) {
 	var (
-		dummyUserID      = "1"
-		dummyUserName, _ = domain.NewUserName("ダミーユーザー")
-		dummyUser        = domain.ReconstructUser(dummyUserID, dummyUserName)
+		dummyUserIDString = "12345678901234567890123456"
+		dummyUserID, _    = domain.ParseUserID(dummyUserIDString)
+		dummyUserID2, _   = domain.ParseUserID("12345678901234567890123457")
+		dummyUserName, _  = domain.NewUserName("ダミーユーザー")
+		dummyUser         = domain.ReconstructUser(dummyUserID, dummyUserName)
 	)
 	type args struct {
 		input UpdateUserUseCaseInput
@@ -36,7 +38,7 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
-					ID:   dummyUserID,
+					ID:   dummyUserIDString,
 					Name: "ダミーユーザー2",
 				},
 			},
@@ -50,7 +52,7 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
-					ID:   dummyUserID,
+					ID:   dummyUserIDString,
 					Name: "ダミーユーザー2",
 				},
 			},
@@ -62,12 +64,12 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			prepareMockFn: func(mockUserRepository *mock_user.MockUserRepository) {
 				mockUserRepository.EXPECT().FindByID(dummyUserID).Return(&dummyUser, nil)
 				userName, _ := domain.NewUserName("ダミーユーザー2")
-				duplicateUser := domain.ReconstructUser(dummyUserID, userName)
+				duplicateUser := domain.ReconstructUser(dummyUserID2, userName)
 				mockUserRepository.EXPECT().FindByName(userName).Return(&duplicateUser, nil)
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
-					ID:   dummyUserID,
+					ID:   dummyUserIDString,
 					Name: "ダミーユーザー2",
 				},
 			},
