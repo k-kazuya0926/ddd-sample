@@ -19,6 +19,10 @@ func newUserID() UserID {
 	return UserID{id: ulid.MustNew(ulid.Timestamp(t), entropy)}
 }
 
+func (u UserID) String() string {
+	return u.id.String()
+}
+
 func ParseUserID(id string) (UserID, error) {
 	ulid, err := ulid.Parse(id)
 	if err != nil {

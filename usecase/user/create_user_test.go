@@ -12,9 +12,10 @@ import (
 
 func Test_createUserUseCase_Execute(t *testing.T) {
 	var (
-		dummyUserID, _  = domain.ParseUserID("12345678901234567890123456")
-		dummyUserID2, _ = domain.ParseUserID("12345678901234567890123457")
-		dummyUserName   = "ダミーユーザー"
+		dummyUserIDString = "12345678901234567890123456"
+		dummyUserID, _    = domain.ParseUserID(dummyUserIDString)
+		dummyUserID2, _   = domain.ParseUserID("12345678901234567890123457")
+		dummyUserName     = "ダミーユーザー"
 	)
 	type args struct {
 		input CreateUserUseCaseInput
@@ -40,7 +41,7 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 					Name: dummyUserName,
 				},
 			},
-			want:    CreateUserUseCaseDTO{},
+			want:    CreateUserUseCaseDTO{UserID: dummyUserIDString},
 			wantErr: false,
 		},
 		{

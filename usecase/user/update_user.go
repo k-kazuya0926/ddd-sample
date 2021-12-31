@@ -16,8 +16,9 @@ type updateUserUseCase struct {
 	userRepository domain.UserRepository
 }
 
-func NewUpdateUserUseCase(userRepository domain.UserRepository) UpdateUserUseCase {
+func NewUpdateUserUseCase(transaction transaction.Transaction, userRepository domain.UserRepository) UpdateUserUseCase {
 	return &updateUserUseCase{
+		transaction:    transaction,
 		userRepository: userRepository,
 	}
 }

@@ -34,15 +34,17 @@ type CreateUserUseCaseInput struct {
 }
 
 type CreateUserUseCaseDTO struct {
+	UserID string
 }
 
 func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUseCaseDTO, error) {
+	var user domain.User
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
 		userName, err := domain.NewUserName(input.Name)
 		if err != nil {
 			return err
 		}
-		user := uc.userFactory.Create(userName)
+		user = uc.userFactory.Create(userName)
 
 		// 重複チェック
 		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)
@@ -64,5 +66,5 @@ func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUs
 	if err != nil {
 		return CreateUserUseCaseDTO{}, err
 	}
-	return CreateUserUseCaseDTO{}, nil
+	return CreateUserUseCaseDTO{UserID: user.ID().String()}, nil
 }

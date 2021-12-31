@@ -15,6 +15,14 @@ func ReconstructUser(id UserID, name UserName) User {
 	}
 }
 
+func (u *User) ID() UserID {
+	return u.id
+}
+
+func (u *User) Name() UserName {
+	return u.name
+}
+
 func (u *User) SetName(name UserName) {
 	u.name = name
 }
