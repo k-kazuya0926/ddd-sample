@@ -3,7 +3,7 @@ package user
 import (
 	domain "ddd-sample/domain/user"
 	"ddd-sample/domain/user/mock_user"
-	"ddd-sample/infra/transaction"
+	"ddd-sample/infra/in_memory/transaction"
 	"reflect"
 	"testing"
 

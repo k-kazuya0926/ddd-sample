@@ -8,8 +8,8 @@ package main
 
 import (
 	"ddd-sample/domain/user"
-	"ddd-sample/infra/transaction"
-	user2 "ddd-sample/infra/user"
+	"ddd-sample/infra/in_memory/transaction"
+	user2 "ddd-sample/infra/in_memory/user"
 	user4 "ddd-sample/presentation/user"
 	user3 "ddd-sample/usecase/user"
 )

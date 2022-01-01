@@ -5,8 +5,8 @@ package main
 
 import (
 	domain "ddd-sample/domain/user"
-	"ddd-sample/infra/transaction"
-	infra "ddd-sample/infra/user"
+	"ddd-sample/infra/in_memory/transaction"
+	infra "ddd-sample/infra/in_memory/user"
 	presentation "ddd-sample/presentation/user"
 	usecase "ddd-sample/usecase/user"
 
