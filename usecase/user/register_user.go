@@ -7,37 +7,37 @@ import (
 	"errors"
 )
 
-type CreateUserUseCase interface {
-	Execute(input CreateUserUseCaseInput) (CreateUserUseCaseDTO, error)
+type RegisterUserUseCase interface {
+	Execute(input RegisterUserUseCaseInput) (RegisterUserUseCaseDTO, error)
 }
 
-type createUserUseCase struct {
+type registerUserUseCase struct {
 	transaction    transaction.Transaction
 	userFactory    domain.UserFactory
 	userRepository domain.UserRepository
 }
 
-func NewCreateUserUseCase(
+func NewRegisterUserUseCase(
 	transaction transaction.Transaction,
 	userFactory domain.UserFactory,
 	userRepository domain.UserRepository,
-) CreateUserUseCase {
-	return &createUserUseCase{
+) RegisterUserUseCase {
+	return &registerUserUseCase{
 		transaction:    transaction,
 		userFactory:    userFactory,
 		userRepository: userRepository,
 	}
 }
 
-type CreateUserUseCaseInput struct {
+type RegisterUserUseCaseInput struct {
 	Name string
 }
 
-type CreateUserUseCaseDTO struct {
+type RegisterUserUseCaseDTO struct {
 	UserID string
 }
 
-func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUseCaseDTO, error) {
+func (uc *registerUserUseCase) Execute(input RegisterUserUseCaseInput) (RegisterUserUseCaseDTO, error) {
 	var user domain.User
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
 		userName, err := domain.NewUserName(input.Name)
@@ -64,7 +64,7 @@ func (uc *createUserUseCase) Execute(input CreateUserUseCaseInput) (CreateUserUs
 		return nil
 	})
 	if err != nil {
-		return CreateUserUseCaseDTO{}, err
+		return RegisterUserUseCaseDTO{}, err
 	}
-	return CreateUserUseCaseDTO{UserID: user.ID().String()}, nil
+	return RegisterUserUseCaseDTO{UserID: user.ID().String()}, nil
 }

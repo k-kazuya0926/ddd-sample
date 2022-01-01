@@ -23,7 +23,7 @@ func (u *User) Name() UserName {
 	return u.name
 }
 
-func (u *User) SetName(name UserName) {
+func (u *User) ChangeName(name UserName) {
 	u.name = name
 }
 

@@ -20,14 +20,14 @@ func initRegistry() *Registry {
 	transactionTransaction := transaction.NewNoopTransaction()
 	userFactory := user.NewUserFactory()
 	userRepository := user2.NewInMemoryUserRepository()
-	createUserUseCase := user3.NewCreateUserUseCase(transactionTransaction, userFactory, userRepository)
-	createUserHandler := user4.NewCreateUserHandler(createUserUseCase)
+	registerUserUseCase := user3.NewRegisterUserUseCase(transactionTransaction, userFactory, userRepository)
+	registerUserHandler := user4.NewRegisterUserHandler(registerUserUseCase)
 	fetchUserUseCase := user3.NewFetchUserUseCase(userRepository)
 	fetchUserHandler := user4.NewFetchUserHandler(fetchUserUseCase)
 	updateUserUseCase := user3.NewUpdateUserUseCase(transactionTransaction, userRepository)
 	updateUserHandler := user4.NewUpdateUserHandler(updateUserUseCase)
 	deleteUserUseCase := user3.NewDeleteUserUseCase(userRepository)
 	deleteUserHandler := user4.NewDeleteUserHandler(deleteUserUseCase)
-	registry := NewRegistry(createUserHandler, fetchUserHandler, updateUserHandler, deleteUserHandler)
+	registry := NewRegistry(registerUserHandler, fetchUserHandler, updateUserHandler, deleteUserHandler)
 	return registry
 }

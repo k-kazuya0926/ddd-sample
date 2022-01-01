@@ -49,7 +49,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 		if err != nil {
 			return err
 		}
-		user.SetName(userName)
+		user.ChangeName(userName)
 
 		// 重複チェック
 		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)

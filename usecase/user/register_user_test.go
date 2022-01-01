@@ -10,7 +10,7 @@ import (
 	"github.com/golang/mock/gomock"
 )
 
-func Test_createUserUseCase_Execute(t *testing.T) {
+func Test_registerUserUseCase_Execute(t *testing.T) {
 	var (
 		dummyUserIDString = "12345678901234567890123456"
 		dummyUserID, _    = domain.ParseUserID(dummyUserIDString)
@@ -18,13 +18,13 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 		dummyUserName     = "ダミーユーザー"
 	)
 	type args struct {
-		input CreateUserUseCaseInput
+		input RegisterUserUseCaseInput
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(*mock_user.MockUserFactory, *mock_user.MockUserRepository)
 		args          args
-		want          CreateUserUseCaseDTO
+		want          RegisterUserUseCaseDTO
 		wantErr       bool
 	}{
 		{
@@ -37,11 +37,11 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().Insert(gomock.Any(), domain.ReconstructUser(dummyUserID, userName)).Return(nil)
 			},
 			args: args{
-				input: CreateUserUseCaseInput{
+				input: RegisterUserUseCaseInput{
 					Name: dummyUserName,
 				},
 			},
-			want:    CreateUserUseCaseDTO{UserID: dummyUserIDString},
+			want:    RegisterUserUseCaseDTO{UserID: dummyUserIDString},
 			wantErr: false,
 		},
 		{
@@ -54,11 +54,11 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByName(gomock.Any(), userName).Return(&duplicateUser, nil)
 			},
 			args: args{
-				input: CreateUserUseCaseInput{
+				input: RegisterUserUseCaseInput{
 					Name: dummyUserName,
 				},
 			},
-			want:    CreateUserUseCaseDTO{},
+			want:    RegisterUserUseCaseDTO{},
 			wantErr: true,
 		},
 	}
@@ -74,7 +74,7 @@ func Test_createUserUseCase_Execute(t *testing.T) {
 			// https://zenn.dev/sanpo_shiho/articles/01da627ead98f5
 			tt.prepareMockFn(mockUserFactory, mockUserRepository)
 
-			uc := &createUserUseCase{
+			uc := &registerUserUseCase{
 				transaction:    transaction.NewNoopTransaction(),
 				userFactory:    mockUserFactory,
 				userRepository: mockUserRepository,
