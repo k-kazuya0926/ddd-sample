@@ -89,8 +89,9 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			tt.prepareMockFn(mockUserRepository)
 
 			uc := &updateUserUseCase{
-				transaction:    transaction.NewNoopTransaction(),
-				userRepository: mockUserRepository,
+				transaction:            transaction.NewNoopTransaction(),
+				userDuplicationChecker: domain.NewUserDuplicationChecker(mockUserRepository),
+				userRepository:         mockUserRepository,
 			}
 			got, err := uc.Execute(tt.args.input)
 			if (err != nil) != tt.wantErr { // エラーがある、かつ期待結果と一致しない場合

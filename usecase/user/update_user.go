@@ -12,14 +12,20 @@ type UpdateUserUseCase interface {
 }
 
 type updateUserUseCase struct {
-	transaction    transaction.Transaction
-	userRepository domain.UserRepository
+	transaction            transaction.Transaction
+	userDuplicationChecker domain.UserDuplicationChecker
+	userRepository         domain.UserRepository
 }
 
-func NewUpdateUserUseCase(transaction transaction.Transaction, userRepository domain.UserRepository) UpdateUserUseCase {
+func NewUpdateUserUseCase(
+	transaction transaction.Transaction,
+	userDuplicationChecker domain.UserDuplicationChecker,
+	userRepository domain.UserRepository,
+) UpdateUserUseCase {
 	return &updateUserUseCase{
-		transaction:    transaction,
-		userRepository: userRepository,
+		transaction:            transaction,
+		userDuplicationChecker: userDuplicationChecker,
+		userRepository:         userRepository,
 	}
 }
 
@@ -52,8 +58,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 		user.ChangeName(userName)
 
 		// 重複チェック
-		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)
-		userExists, err := userDuplicationChecker.Exists(ctx, *user)
+		userExists, err := uc.userDuplicationChecker.Exists(ctx, *user)
 		if err != nil {
 			return err
 		}

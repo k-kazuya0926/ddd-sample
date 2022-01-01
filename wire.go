@@ -18,6 +18,7 @@ func initRegistry() *Registry {
 		transaction.NewNoopTransaction,
 		domain.NewUserFactory,
 		infra.NewInMemoryUserRepository,
+		domain.NewUserDuplicationChecker,
 		usecase.NewRegisterUserUseCase,
 		presentation.NewRegisterUserHandler,
 		usecase.NewFetchUserUseCase,

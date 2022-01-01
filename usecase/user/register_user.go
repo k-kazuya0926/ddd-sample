@@ -12,20 +12,23 @@ type RegisterUserUseCase interface {
 }
 
 type registerUserUseCase struct {
-	transaction    transaction.Transaction
-	userFactory    domain.UserFactory
-	userRepository domain.UserRepository
+	transaction            transaction.Transaction
+	userFactory            domain.UserFactory
+	userDuplicationChecker domain.UserDuplicationChecker
+	userRepository         domain.UserRepository
 }
 
 func NewRegisterUserUseCase(
 	transaction transaction.Transaction,
 	userFactory domain.UserFactory,
+	userDuplicationChecker domain.UserDuplicationChecker,
 	userRepository domain.UserRepository,
 ) RegisterUserUseCase {
 	return &registerUserUseCase{
-		transaction:    transaction,
-		userFactory:    userFactory,
-		userRepository: userRepository,
+		transaction:            transaction,
+		userFactory:            userFactory,
+		userDuplicationChecker: userDuplicationChecker,
+		userRepository:         userRepository,
 	}
 }
 
@@ -47,8 +50,7 @@ func (uc *registerUserUseCase) Execute(input RegisterUserUseCaseInput) (Register
 		user = uc.userFactory.Create(userName)
 
 		// 重複チェック
-		userDuplicationChecker := domain.NewUserDuplicationChecker(uc.userRepository)
-		userExists, err := userDuplicationChecker.Exists(ctx, user)
+		userExists, err := uc.userDuplicationChecker.Exists(ctx, user)
 		if err != nil {
 			return err
 		}
