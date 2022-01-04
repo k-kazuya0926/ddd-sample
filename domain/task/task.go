@@ -28,6 +28,24 @@ func NewTask(name TaskName, dueDate time.Time, userID user.UserID) Task {
 	}
 }
 
+func ReconstructTask(
+	id TaskID,
+	name TaskName,
+	userID user.UserID,
+	status TaskStatus,
+	postponeCount uint64,
+	dueDate time.Time,
+) Task {
+	return Task{
+		id:            id,
+		name:          name,
+		userID:        userID,
+		status:        status,
+		postponeCount: postponeCount,
+		dueDate:       dueDate,
+	}
+}
+
 func (t *Task) Postpone() error {
 	if t.postponeCount >= maxPostponeCount {
 		return errors.New("最大延期回数を超えています")
