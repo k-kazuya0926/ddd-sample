@@ -26,9 +26,3 @@ func (u *User) Name() UserName {
 func (u *User) ChangeName(name UserName) {
 	u.name = name
 }
-
-func (u *User) Notify(note UserNotification) {
-	// 内部データを通知
-	note.ID(u.id)
-	note.Name(u.name)
-}
