@@ -26,8 +26,8 @@ func NewCreateTaskUseCase(transaction transaction.Transaction, taskRepository do
 
 type CreateTaskUseCaseInput struct {
 	Name    string
-	dueDate time.Time
-	userID  user.UserID
+	DueDate time.Time
+	UserID  user.UserID
 }
 
 type CreateTaskUseCaseDTO struct {
@@ -41,7 +41,7 @@ func (uc *createTaskUseCase) Execute(input CreateTaskUseCaseInput) (CreateTaskUs
 		if err != nil {
 			return err
 		}
-		task = domain.NewTask(taskNameModel, input.dueDate, input.userID)
+		task = domain.NewTask(taskNameModel, input.DueDate, input.UserID)
 		if err = uc.taskRepository.Insert(ctx, task); err != nil {
 			return err
 		}

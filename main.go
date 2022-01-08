@@ -4,6 +4,7 @@ import (
 	"ddd-sample/presentation/task"
 	"ddd-sample/presentation/user"
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -28,8 +29,11 @@ func main() {
 	})
 	fmt.Printf("updateUserResponse: %+v\n", updateUserResponse)
 
+	// タスク作成
 	createTaskResponse := registry.createTaskHandler.Handle(task.CreateTaskRequest{
-		Name: "タスク1",
+		Name:    "タスク1",
+		DueDate: time.Date(2022, 1, 31, 0, 0, 0, 0, time.Local),
+		UserID:  registerUserResponse.UserID,
 	})
 	fmt.Printf("createTaskResponse: %+v\n", createTaskResponse)
 

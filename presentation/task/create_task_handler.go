@@ -1,7 +1,9 @@
 package task
 
 import (
+	"ddd-sample/domain/user"
 	"ddd-sample/usecase/task"
+	"time"
 )
 
 type CreateTaskHandler struct {
@@ -13,7 +15,9 @@ func NewCreateTaskHandler(useCase task.CreateTaskUseCase) *CreateTaskHandler {
 }
 
 type CreateTaskRequest struct {
-	Name string
+	Name    string
+	DueDate time.Time
+	UserID  string
 }
 
 type CreateTaskResponse struct {
@@ -21,8 +25,15 @@ type CreateTaskResponse struct {
 }
 
 func (h *CreateTaskHandler) Handle(request CreateTaskRequest) CreateTaskResponse {
+	// 値オブジェクトの生成をプレゼンテーション層で行うとユースケースがタイプセーフになる
+	userID, err := user.ParseUserID(request.UserID)
+	if err != nil {
+		panic(err)
+	}
 	dto, err := h.useCase.Execute(task.CreateTaskUseCaseInput{
-		Name: request.Name,
+		Name:    request.Name,
+		DueDate: request.DueDate,
+		UserID:  userID,
 	})
 	if err != nil {
 		panic(err)
