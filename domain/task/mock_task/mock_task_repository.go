@@ -48,3 +48,17 @@ func (mr *MockTaskRepositoryMockRecorder) Insert(ctx, task interface{}) *gomock.
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockTaskRepository)(nil).Insert), ctx, task)
 }
+
+// Update mocks base method.
+func (m *MockTaskRepository) Update(ctx context.Context, task task.Task) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Update", ctx, task)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Update indicates an expected call of Update.
+func (mr *MockTaskRepositoryMockRecorder) Update(ctx, task interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockTaskRepository)(nil).Update), ctx, task)
+}

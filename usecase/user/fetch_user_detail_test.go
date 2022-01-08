@@ -10,7 +10,7 @@ import (
 	"github.com/golang/mock/gomock"
 )
 
-func Test_fetchUserUseCase_Execute(t *testing.T) {
+func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 	var (
 		dummyUserIDString   = "12345678901234567890123456"
 		dummyUserID, _      = domain.ParseUserID(dummyUserIDString)
@@ -19,13 +19,13 @@ func Test_fetchUserUseCase_Execute(t *testing.T) {
 		dummyUser           = domain.ReconstructUser(dummyUserID, dummyUserName)
 	)
 	type args struct {
-		input FetchUserUseCaseInput
+		input FetchUserDetailUseCaseInput
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(m *mock_user.MockUserRepository)
 		args          args
-		want          FetchUserUseCaseDTO
+		want          FetchUserDetailUseCaseDTO
 		wantErr       bool
 	}{
 		{
@@ -34,11 +34,11 @@ func Test_fetchUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(&dummyUser, nil)
 			},
 			args: args{
-				input: FetchUserUseCaseInput{
+				input: FetchUserDetailUseCaseInput{
 					ID: dummyUserIDString,
 				},
 			},
-			want: FetchUserUseCaseDTO{
+			want: FetchUserDetailUseCaseDTO{
 				ID:   dummyUserIDString,
 				Name: dummyUserNameString,
 			},
@@ -50,7 +50,7 @@ func Test_fetchUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(nil, errors.New("dummy"))
 			},
 			args: args{
-				input: FetchUserUseCaseInput{
+				input: FetchUserDetailUseCaseInput{
 					ID: dummyUserIDString,
 				},
 			},
@@ -62,7 +62,7 @@ func Test_fetchUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(nil, nil)
 			},
 			args: args{
-				input: FetchUserUseCaseInput{
+				input: FetchUserDetailUseCaseInput{
 					ID: dummyUserIDString,
 				},
 			},
@@ -79,7 +79,7 @@ func Test_fetchUserUseCase_Execute(t *testing.T) {
 			// https://zenn.dev/sanpo_shiho/articles/01da627ead98f5
 			tt.prepareMockFn(mockUserRepository)
 
-			uc := &fetchUserUseCase{
+			uc := &fetchUserDetailUseCase{
 				userRepository: mockUserRepository,
 			}
 			got, err := uc.Execute(tt.args.input)

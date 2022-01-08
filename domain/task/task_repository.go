@@ -5,4 +5,5 @@ import "context"
 
 type TaskRepository interface {
 	Insert(ctx context.Context, task Task) error
+	Update(ctx context.Context, task Task) error
 }

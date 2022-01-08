@@ -27,8 +27,8 @@ func initRegistry() *Registry {
 	userDuplicationChecker := user.NewUserDuplicationChecker(userRepository)
 	registerUserUseCase := user3.NewRegisterUserUseCase(transactionTransaction, userFactory, userDuplicationChecker, userRepository)
 	registerUserHandler := user4.NewRegisterUserHandler(registerUserUseCase)
-	fetchUserUseCase := user3.NewFetchUserUseCase(userRepository)
-	fetchUserHandler := user4.NewFetchUserHandler(fetchUserUseCase)
+	fetchUserDetailUseCase := user3.NewFetchUserDetailUseCase(userRepository)
+	fetchUserDetailHandler := user4.NewFetchUserDetailHandler(fetchUserDetailUseCase)
 	updateUserUseCase := user3.NewUpdateUserUseCase(transactionTransaction, userDuplicationChecker, userRepository)
 	updateUserHandler := user4.NewUpdateUserHandler(updateUserUseCase)
 	deleteUserUseCase := user3.NewDeleteUserUseCase(userRepository)
@@ -37,6 +37,6 @@ func initRegistry() *Registry {
 	taskRepository := task2.NewInMemoryTaskRepository()
 	createTaskUseCase := task3.NewCreateTaskUseCase(transactionTransaction, taskFactory, taskRepository)
 	createTaskHandler := task4.NewCreateTaskHandler(createTaskUseCase)
-	registry := NewRegistry(registerUserHandler, fetchUserHandler, updateUserHandler, deleteUserHandler, createTaskHandler)
+	registry := NewRegistry(registerUserHandler, fetchUserDetailHandler, updateUserHandler, deleteUserHandler, createTaskHandler)
 	return registry
 }
