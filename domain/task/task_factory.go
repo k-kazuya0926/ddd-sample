@@ -19,7 +19,7 @@ func NewTaskFactory() TaskFactory {
 
 func (f *taskFactory) Create(name TaskName, dueDate time.Time, userID user.UserID) Task {
 	return Task{
-		id:            NewTaskID(),
+		id:            newTaskID(),
 		name:          name,
 		userID:        userID,
 		status:        TaskStatusUnDone,

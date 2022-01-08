@@ -18,3 +18,17 @@ func (r *InMemoryTaskRepository) Insert(ctx context.Context, task domain.Task) e
 	r.Store[task.ID()] = task
 	return nil
 }
+
+func (r *InMemoryTaskRepository) FindByID(ctx context.Context, id domain.TaskID) (*domain.Task, error) {
+	for taskID, task := range r.Store {
+		if taskID == id {
+			return &task, nil
+		}
+	}
+	return nil, nil
+}
+
+func (r *InMemoryTaskRepository) Update(ctx context.Context, task domain.Task) error {
+	r.Store[task.ID()] = task
+	return nil
+}

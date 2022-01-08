@@ -11,7 +11,8 @@ type TaskID struct {
 	id ulid.ULID
 }
 
-func NewTaskID() TaskID {
+// ドメイン層からしか呼び出せないよう、パッケージプライベートとしている
+func newTaskID() TaskID {
 	t := time.Now()
 	entropy := ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
 	return TaskID{id: ulid.MustNew(ulid.Timestamp(t), entropy)}

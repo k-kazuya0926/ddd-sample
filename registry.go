@@ -11,6 +11,7 @@ type Registry struct {
 	updateUserHandler      *user.UpdateUserHandler
 	deleteUserHandler      *user.DeleteUserHandler
 	createTaskHandler      *task.CreateTaskHandler
+	postponeTaskHandler    *task.PostponeTaskHandler
 }
 
 func NewRegistry(
@@ -19,6 +20,7 @@ func NewRegistry(
 	updateUserHandler *user.UpdateUserHandler,
 	deleteUserHandler *user.DeleteUserHandler,
 	createTaskHandler *task.CreateTaskHandler,
+	postponeTaskHandler *task.PostponeTaskHandler,
 ) *Registry {
 	return &Registry{
 		registerUserHandler:    registerUserHandler,
@@ -26,5 +28,6 @@ func NewRegistry(
 		updateUserHandler:      updateUserHandler,
 		deleteUserHandler:      deleteUserHandler,
 		createTaskHandler:      createTaskHandler,
+		postponeTaskHandler:    postponeTaskHandler,
 	}
 }

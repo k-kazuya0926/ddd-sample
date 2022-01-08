@@ -37,6 +37,12 @@ func main() {
 	})
 	fmt.Printf("createTaskResponse: %+v\n", createTaskResponse)
 
+	// タスク延期
+	postponeTaskResponse := registry.postponeTaskHandler.Handle(task.PostponeTaskRequest{
+		TaskID: createTaskResponse.TaskID,
+	})
+	fmt.Printf("postponeTaskResponse: %+v\n", postponeTaskResponse)
+
 	// ユーザー削除
 	deleteUserResponse := registry.deleteUserHandler.Handle(user.DeleteUserRequest{
 		UserID: registerUserResponse.UserID,

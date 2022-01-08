@@ -35,6 +35,8 @@ func initRegistry() *Registry {
 		domain_task.NewTaskFactory,
 		usecase_task.NewCreateTaskUseCase,
 		presentation_task.NewCreateTaskHandler,
+		usecase_task.NewPostponeTaskUseCase,
+		presentation_task.NewPostponeTaskHandler,
 		NewRegistry,
 	)
 	return nil // wireはこの関数の戻り値を無視するので、nilを返せばよい

@@ -47,3 +47,11 @@ func (t *Task) Postpone() error {
 func (t *Task) ID() TaskID {
 	return t.id
 }
+
+func (t *Task) PostponeCount() uint64 {
+	return t.postponeCount
+}
+
+func (t *Task) DueDate() time.Time {
+	return t.dueDate
+}

@@ -8,7 +8,7 @@ import (
 )
 
 func TestReconstructTask(t *testing.T) {
-	taskID := NewTaskID()
+	taskID := newTaskID()
 	taskName, _ := NewTaskName("タスク名")
 	userID, _ := user.ParseUserID("12345678901234567890123456")
 	status := TaskStatusDone
@@ -57,7 +57,7 @@ func TestReconstructTask(t *testing.T) {
 }
 
 func TestTask_Postpone(t1 *testing.T) {
-	taskID := NewTaskID()
+	taskID := newTaskID()
 	taskName, _ := NewTaskName("タスク名")
 	userID, _ := user.ParseUserID("12345678901234567890123456")
 	status := TaskStatusUnDone
