@@ -17,17 +17,6 @@ type Task struct {
 	dueDate       time.Time
 }
 
-func NewTask(name TaskName, dueDate time.Time, userID user.UserID) Task {
-	return Task{
-		id:            NewTaskID(),
-		name:          name,
-		userID:        userID,
-		status:        TaskStatusUnDone,
-		postponeCount: 0,
-		dueDate:       dueDate,
-	}
-}
-
 func ReconstructTask(
 	id TaskID,
 	name TaskName,

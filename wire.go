@@ -4,6 +4,7 @@
 package main
 
 import (
+	domain_task "ddd-sample/domain/task"
 	domain_user "ddd-sample/domain/user"
 	in_memory_task "ddd-sample/infra/in_memory/task"
 	"ddd-sample/infra/in_memory/transaction"
@@ -31,6 +32,7 @@ func initRegistry() *Registry {
 		usecase_user.NewDeleteUserUseCase,
 		presentation_user.NewDeleteUserHandler,
 		in_memory_task.NewInMemoryTaskRepository,
+		domain_task.NewTaskFactory,
 		usecase_task.NewCreateTaskUseCase,
 		presentation_task.NewCreateTaskHandler,
 		NewRegistry,

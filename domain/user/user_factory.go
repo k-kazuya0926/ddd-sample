@@ -12,7 +12,7 @@ func NewUserFactory() UserFactory {
 	return &userFactory{}
 }
 
-func (uf *userFactory) Create(name UserName) User {
+func (f *userFactory) Create(name UserName) User {
 	return User{
 		id:   newUserID(),
 		name: name,

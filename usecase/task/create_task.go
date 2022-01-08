@@ -14,12 +14,18 @@ type CreateTaskUseCase interface {
 
 type createTaskUseCase struct {
 	transaction    transaction.Transaction
+	taskFactory    domain.TaskFactory
 	taskRepository domain.TaskRepository
 }
 
-func NewCreateTaskUseCase(transaction transaction.Transaction, taskRepository domain.TaskRepository) CreateTaskUseCase {
+func NewCreateTaskUseCase(
+	transaction transaction.Transaction,
+	taskFactory domain.TaskFactory,
+	taskRepository domain.TaskRepository,
+) CreateTaskUseCase {
 	return &createTaskUseCase{
 		transaction:    transaction,
+		taskFactory:    taskFactory,
 		taskRepository: taskRepository,
 	}
 }
@@ -37,11 +43,11 @@ type CreateTaskUseCaseDTO struct {
 func (uc *createTaskUseCase) Execute(input CreateTaskUseCaseInput) (CreateTaskUseCaseDTO, error) {
 	var task domain.Task
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
-		taskNameModel, err := domain.NewTaskName(input.Name)
+		taskName, err := domain.NewTaskName(input.Name)
 		if err != nil {
 			return err
 		}
-		task = domain.NewTask(taskNameModel, input.DueDate, input.UserID)
+		task = uc.taskFactory.Create(taskName, input.DueDate, input.UserID)
 		if err = uc.taskRepository.Insert(ctx, task); err != nil {
 			return err
 		}

@@ -20,3 +20,11 @@ func NewTaskID() TaskID {
 func (t TaskID) String() string {
 	return t.id.String()
 }
+
+func ParseTaskID(id string) (TaskID, error) {
+	ulid, err := ulid.Parse(id)
+	if err != nil {
+		return TaskID{}, err
+	}
+	return TaskID{id: ulid}, nil
+}

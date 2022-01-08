@@ -25,7 +25,7 @@ type CreateTaskResponse struct {
 }
 
 func (h *CreateTaskHandler) Handle(request CreateTaskRequest) CreateTaskResponse {
-	// 値オブジェクトの生成をプレゼンテーション層で行うとユースケースがタイプセーフになる
+	// ユースケースがタイプセーフになるので、値オブジェクトの生成をプレゼンテーション層で行うのははOK
 	userID, err := user.ParseUserID(request.UserID)
 	if err != nil {
 		panic(err)
