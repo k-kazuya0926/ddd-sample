@@ -64,7 +64,7 @@ func TestNewTask(t *testing.T) {
 
 func TestReconstructTask(t *testing.T) {
 	taskID := NewTaskID()
-	taskName := NewTaskName("タスク名")
+	taskName, _ := NewTaskName("タスク名")
 	userID, _ := user.ParseUserID("12345678901234567890123456")
 	status := TaskStatusDone
 	var postponeCount uint64 = 2
@@ -113,7 +113,7 @@ func TestReconstructTask(t *testing.T) {
 
 func TestTask_Postpone(t1 *testing.T) {
 	taskID := NewTaskID()
-	taskName := NewTaskName("タスク名")
+	taskName, _ := NewTaskName("タスク名")
 	userID, _ := user.ParseUserID("12345678901234567890123456")
 	status := TaskStatusUnDone
 	dueDate := time.Date(2022, 1, 1, 0, 0, 0, 0, time.Local)

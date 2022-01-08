@@ -4,11 +4,14 @@
 package main
 
 import (
-	domain "ddd-sample/domain/user"
+	domain_user "ddd-sample/domain/user"
+	in_memory_task "ddd-sample/infra/in_memory/task"
 	"ddd-sample/infra/in_memory/transaction"
-	infra "ddd-sample/infra/in_memory/user"
-	presentation "ddd-sample/presentation/user"
-	usecase "ddd-sample/usecase/user"
+	in_memory_user "ddd-sample/infra/in_memory/user"
+	presentation_task "ddd-sample/presentation/task"
+	presentation_user "ddd-sample/presentation/user"
+	usecase_task "ddd-sample/usecase/task"
+	usecase_user "ddd-sample/usecase/user"
 
 	"github.com/google/wire"
 )
@@ -16,17 +19,20 @@ import (
 func initRegistry() *Registry {
 	wire.Build(
 		transaction.NewNoopTransaction,
-		domain.NewUserFactory,
-		infra.NewInMemoryUserRepository,
-		domain.NewUserDuplicationChecker,
-		usecase.NewRegisterUserUseCase,
-		presentation.NewRegisterUserHandler,
-		usecase.NewFetchUserUseCase,
-		presentation.NewFetchUserHandler,
-		usecase.NewUpdateUserUseCase,
-		presentation.NewUpdateUserHandler,
-		usecase.NewDeleteUserUseCase,
-		presentation.NewDeleteUserHandler,
+		in_memory_user.NewInMemoryUserRepository,
+		domain_user.NewUserFactory,
+		domain_user.NewUserDuplicationChecker,
+		usecase_user.NewRegisterUserUseCase,
+		presentation_user.NewRegisterUserHandler,
+		usecase_user.NewFetchUserUseCase,
+		presentation_user.NewFetchUserHandler,
+		usecase_user.NewUpdateUserUseCase,
+		presentation_user.NewUpdateUserHandler,
+		usecase_user.NewDeleteUserUseCase,
+		presentation_user.NewDeleteUserHandler,
+		in_memory_task.NewInMemoryTaskRepository,
+		usecase_task.NewCreateTaskUseCase,
+		presentation_task.NewCreateTaskHandler,
 		NewRegistry,
 	)
 	return nil // wireはこの関数の戻り値を無視するので、nilを返せばよい

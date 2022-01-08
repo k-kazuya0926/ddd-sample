@@ -1,6 +1,7 @@
 package main
 
 import (
+	"ddd-sample/presentation/task"
 	"ddd-sample/presentation/user"
 	"fmt"
 )
@@ -10,7 +11,7 @@ func main() {
 
 	// ユーザー登録
 	registerUserResponse := registry.registerUserHandler.Handle(user.RegisterUserRequest{
-		Name: "ダミーユーザー",
+		Name: "ユーザー1",
 	})
 	fmt.Printf("registerUserResponse: %+v\n", registerUserResponse)
 
@@ -23,9 +24,14 @@ func main() {
 	// ユーザー更新
 	updateUserResponse := registry.updateUserHandler.Handle(user.UpdateUserRequest{
 		UserID: registerUserResponse.UserID,
-		Name:   "ダミーユーザー2",
+		Name:   "ユーザー2",
 	})
 	fmt.Printf("updateUserResponse: %+v\n", updateUserResponse)
+
+	createTaskResponse := registry.createTaskHandler.Handle(task.CreateTaskRequest{
+		Name: "タスク1",
+	})
+	fmt.Printf("createTaskResponse: %+v\n", createTaskResponse)
 
 	// ユーザー削除
 	deleteUserResponse := registry.deleteUserHandler.Handle(user.DeleteUserRequest{

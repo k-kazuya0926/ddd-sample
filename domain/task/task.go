@@ -54,3 +54,7 @@ func (t *Task) Postpone() error {
 	t.postponeCount += 1
 	return nil
 }
+
+func (t *Task) ID() TaskID {
+	return t.id
+}

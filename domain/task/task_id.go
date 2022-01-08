@@ -16,3 +16,7 @@ func NewTaskID() TaskID {
 	entropy := ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
 	return TaskID{id: ulid.MustNew(ulid.Timestamp(t), entropy)}
 }
+
+func (t TaskID) String() string {
+	return t.id.String()
+}
