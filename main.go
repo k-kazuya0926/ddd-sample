@@ -37,6 +37,12 @@ func main() {
 	})
 	fmt.Printf("createTaskResponse: %+v\n", createTaskResponse)
 
+	// タスク詳細取得
+	fetchTaskDetailResponse := registry.fetchTaskDetailHandler.Handle(task.FetchTaskDetailRequest{
+		TaskID: createTaskResponse.TaskID,
+	})
+	fmt.Printf("fetchTaskDetailResponse: %+v\n", fetchTaskDetailResponse)
+
 	// タスク延期
 	postponeTaskResponse := registry.postponeTaskHandler.Handle(task.PostponeTaskRequest{
 		TaskID: createTaskResponse.TaskID,

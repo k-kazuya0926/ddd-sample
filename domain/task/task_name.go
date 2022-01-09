@@ -17,3 +17,7 @@ func NewTaskName(name string) (TaskName, error) {
 	}
 	return TaskName{name: name}, nil
 }
+
+func (n TaskName) String() string {
+	return n.name
+}

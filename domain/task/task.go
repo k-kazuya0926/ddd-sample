@@ -49,6 +49,14 @@ func (t *Task) ID() TaskID {
 	return t.id
 }
 
+func (t *Task) Name() TaskName {
+	return t.name
+}
+
+func (t *Task) Stasus() TaskStatus {
+	return t.status
+}
+
 func (t *Task) PostponeCount() uint64 {
 	return t.postponeCount
 }
