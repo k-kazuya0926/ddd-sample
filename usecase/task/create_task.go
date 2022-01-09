@@ -4,7 +4,7 @@ import (
 	"context"
 	domain "ddd-sample/domain/task"
 	"ddd-sample/domain/user"
-	"ddd-sample/usecase/transaction"
+	"ddd-sample/usecase/shared/transaction"
 	"time"
 )
 

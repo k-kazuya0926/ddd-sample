@@ -18,6 +18,39 @@ DDD(ドメイン駆動設計)のサンプル
 - oklog/ulid ※ID生成
 - gomock
 
+## ディレクトリ構成
+
+```shell
+% tree -d
+.
+├── domain ※ドメイン層
+│   ├── shared
+│   │   ├── error
+│   │   └── page
+│   ├── task
+│   │   └── mock_task
+│   └── user
+│       └── mock_user
+├── infra ※インフラ層
+│   ├── in_memory
+│   │   ├── task
+│   │   ├── transaction
+│   │   └── user
+│   └── rdb
+│       └── transaction
+├── presentation ※プレゼンテーション層
+│   ├── shared
+│   │   └── error
+│   ├── task
+│   └── user
+└── usecase ※アプリケーション層
+    ├── shared
+    │   ├── error
+    │   └── transaction
+    ├── task
+    └── user
+```
+
 ## 参考資料
 - [ドメイン駆動設計 モデリング/実装ガイド](https://little-hands.booth.pm/items/1835632)
 - [ドメイン駆動設計 サンプルコード&FAQ](https://little-hands.booth.pm/items/3363104)

@@ -2,7 +2,7 @@ package transaction
 
 import (
 	"context"
-	"ddd-sample/usecase/transaction"
+	"ddd-sample/usecase/shared/transaction"
 )
 
 // 何もしない実装

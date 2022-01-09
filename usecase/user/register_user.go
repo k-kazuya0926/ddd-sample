@@ -4,7 +4,7 @@ import (
 	"context"
 	domain "ddd-sample/domain/user"
 	usecase_error "ddd-sample/usecase/shared/error"
-	"ddd-sample/usecase/transaction"
+	"ddd-sample/usecase/shared/transaction"
 	"fmt"
 )
 

@@ -3,7 +3,7 @@ package transaction
 import (
 	"context"
 	"database/sql"
-	"ddd-sample/usecase/transaction"
+	"ddd-sample/usecase/shared/transaction"
 
 	"github.com/jmoiron/sqlx"
 )
