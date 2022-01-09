@@ -9,7 +9,7 @@ DDD(ドメイン駆動設計)のサンプル
 
 ## ドメインモデル図/オブジェクト図
 
-<img src="https://user-images.githubusercontent.com/61341861/148669648-c7cedd70-e3db-4991-9351-e4e8521edeac.png" width="800" />"
+<img src="https://user-images.githubusercontent.com/61341861/148699095-89d897dd-5c45-44e5-a7be-892565d9eb01.png" width="800" />"
 
 ## 使用技術
 - Go 1.17
