@@ -52,7 +52,9 @@ func (uc *postponeTaskUseCase) Execute(input PostponeTaskUseCaseInput) (Postpone
 			return fmt.Errorf("%w", usecase_error.NewUseCaseError("タスクが存在しません。"))
 		}
 
-		task.Postpone()
+		if err = task.Postpone(); err != nil {
+			return err
+		}
 
 		err = uc.taskRepository.Update(ctx, *task)
 		if err != nil {

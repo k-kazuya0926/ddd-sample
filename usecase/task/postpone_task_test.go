@@ -33,7 +33,7 @@ func Test_postponeTaskUseCase_Execute(t *testing.T) {
 		wantErr       bool
 	}{
 		{
-			name: "",
+			name: "正常系",
 			prepareMockFn: func(mockTaskRepository *mock_task.MockTaskRepository) {
 				task := domain_task.ReconstructTask(
 					dummyTaskID,
@@ -64,6 +64,38 @@ func Test_postponeTaskUseCase_Execute(t *testing.T) {
 				DueDate:       dummyDueDate.AddDate(0, 0, 1),
 			},
 			wantErr: false,
+		},
+		{
+			name: "異常系：タスクが存在しない",
+			prepareMockFn: func(mockTaskRepository *mock_task.MockTaskRepository) {
+				mockTaskRepository.EXPECT().FindByID(gomock.Any(), dummyTaskID).Return(nil, nil)
+			},
+			args: args{
+				input: PostponeTaskUseCaseInput{
+					TaskID: dummyTaskIDString,
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "異常系：最大延期回数オーバー",
+			prepareMockFn: func(mockTaskRepository *mock_task.MockTaskRepository) {
+				task := domain_task.ReconstructTask(
+					dummyTaskID,
+					dummyTaskName,
+					dummyUserID,
+					domain_task.TaskStatusUnDone,
+					3,
+					dummyDueDate,
+				)
+				mockTaskRepository.EXPECT().FindByID(gomock.Any(), dummyTaskID).Return(&task, nil)
+			},
+			args: args{
+				input: PostponeTaskUseCaseInput{
+					TaskID: dummyTaskIDString,
+				},
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
