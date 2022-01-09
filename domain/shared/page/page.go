@@ -1,13 +1,5 @@
 package page
 
-type Page struct {
-	// 取得したエンティティ
-	Items []interface{}
-
-	// ページング情報
-	Paging Paging
-}
-
 type Paging struct {
 	// 指定した条件に該当する全件数
 	TotalCount uint64
