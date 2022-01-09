@@ -37,7 +37,7 @@ func initRegistry() *Registry {
 	taskRepository := task2.NewInMemoryTaskRepository()
 	createTaskUseCase := task3.NewCreateTaskUseCase(transactionTransaction, taskFactory, taskRepository)
 	createTaskHandler := task4.NewCreateTaskHandler(createTaskUseCase)
-	fetchTaskDetailUseCase := task3.NewFetchTaskDetailUseCase(transactionTransaction, taskRepository)
+	fetchTaskDetailUseCase := task3.NewFetchTaskDetailUseCase(transactionTransaction, taskRepository, userRepository)
 	fetchTaskDetailHandler := task4.NewFetchTaskDetailHandler(fetchTaskDetailUseCase)
 	postponeTaskUseCase := task3.NewPostponeTaskUseCase(transactionTransaction, taskRepository)
 	postponeTaskHandler := task4.NewPostponeTaskHandler(postponeTaskUseCase)

@@ -4,6 +4,7 @@ import (
 	domain_task "ddd-sample/domain/task"
 	"ddd-sample/domain/task/mock_task"
 	domain_user "ddd-sample/domain/user"
+	"ddd-sample/domain/user/mock_user"
 	"ddd-sample/infra/in_memory/transaction"
 	"reflect"
 	"testing"
@@ -16,6 +17,8 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 	var (
 		dummyUserIDString   = "12345678901234567890123456"
 		dummyUserID, _      = domain_user.ParseUserID(dummyUserIDString)
+		dummyUserNameString = "ダミーユーザー"
+		dummyUserName, _    = domain_user.NewUserName(dummyUserNameString)
 		dummyTaskIDString   = "12345678901234567890123456"
 		dummyTaskID, _      = domain_task.ParseTaskID(dummyTaskIDString)
 		dummyTaskNameString = "ダミータスク"
@@ -27,14 +30,14 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 	}
 	tests := []struct {
 		name          string
-		prepareMockFn func(*mock_task.MockTaskRepository)
+		prepareMockFn func(*mock_task.MockTaskRepository, *mock_user.MockUserRepository)
 		args          args
 		want          FetchTaskDetailUseCaseDTO
 		wantErr       bool
 	}{
 		{
 			name: "正常系",
-			prepareMockFn: func(mockTaskRepository *mock_task.MockTaskRepository) {
+			prepareMockFn: func(mockTaskRepository *mock_task.MockTaskRepository, mockUserRepository *mock_user.MockUserRepository) {
 				task := domain_task.ReconstructTask(
 					dummyTaskID,
 					dummyTaskName,
@@ -44,6 +47,9 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 					dummyDueDate,
 				)
 				mockTaskRepository.EXPECT().FindByID(gomock.Any(), dummyTaskID).Return(&task, nil)
+
+				user := domain_user.ReconstructUser(dummyUserID, dummyUserName)
+				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(&user, nil)
 			},
 			args: args{
 				input: FetchTaskDetailUseCaseInput{
@@ -53,6 +59,7 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 			want: FetchTaskDetailUseCaseDTO{
 				TaskID:        dummyTaskIDString,
 				TaskName:      dummyTaskNameString,
+				UserName:      dummyUserNameString,
 				TaskStatus:    "未完了",
 				PostponeCount: 0,
 				DueDate:       dummyDueDate,
@@ -61,7 +68,7 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 		},
 		{
 			name: "異常系：タスクが存在しない",
-			prepareMockFn: func(mockTaskRepository *mock_task.MockTaskRepository) {
+			prepareMockFn: func(mockTaskRepository *mock_task.MockTaskRepository, mockUserRepository *mock_user.MockUserRepository) {
 				mockTaskRepository.EXPECT().FindByID(gomock.Any(), dummyTaskID).Return(nil, nil)
 			},
 			args: args{
@@ -78,13 +85,15 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 			defer mockCtrl.Finish()
 
 			mockTaskRepository := mock_task.NewMockTaskRepository(mockCtrl)
+			mockUserRepository := mock_user.NewMockUserRepository(mockCtrl)
 			// 参考記事「gomockを完全に理解する」
 			// https://zenn.dev/sanpo_shiho/articles/01da627ead98f5
-			tt.prepareMockFn(mockTaskRepository)
+			tt.prepareMockFn(mockTaskRepository, mockUserRepository)
 
 			uc := &fetchTaskDetailUseCase{
 				transaction:    transaction.NewNoopTransaction(),
 				taskRepository: mockTaskRepository,
+				userRepository: mockUserRepository,
 			}
 			got, err := uc.Execute(tt.args.input)
 			if (err != nil) != tt.wantErr {

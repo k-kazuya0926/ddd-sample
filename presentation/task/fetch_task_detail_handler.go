@@ -21,6 +21,7 @@ type FetchTaskDetailRequest struct {
 type FetchTaskDetailResponse struct {
 	TaskID        string
 	TaskName      string
+	UserName      string
 	TaskStatus    string
 	PostponeCount uint64
 	DueDate       time.Time
@@ -38,6 +39,7 @@ func (h *FetchTaskDetailHandler) Handle(request FetchTaskDetailRequest) FetchTas
 	return FetchTaskDetailResponse{
 		TaskID:        dto.TaskID,
 		TaskName:      dto.TaskName,
+		UserName:      dto.UserName,
 		TaskStatus:    dto.TaskStatus,
 		PostponeCount: dto.PostponeCount,
 		DueDate:       dto.DueDate,

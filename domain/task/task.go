@@ -53,6 +53,10 @@ func (t *Task) Name() TaskName {
 	return t.name
 }
 
+func (t *Task) UserID() user.UserID {
+	return t.userID
+}
+
 func (t *Task) Stasus() TaskStatus {
 	return t.status
 }
