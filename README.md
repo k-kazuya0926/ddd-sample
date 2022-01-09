@@ -43,7 +43,7 @@ DDD(ドメイン駆動設計)のサンプル
 │   │   └── error
 │   ├── task
 │   └── user
-└── usecase ※アプリケーション層
+└── usecase ※ユースケース層
     ├── shared
     │   ├── error
     │   └── transaction
