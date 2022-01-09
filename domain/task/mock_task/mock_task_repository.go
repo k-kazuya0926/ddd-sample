@@ -36,18 +36,18 @@ func (m *MockTaskRepository) EXPECT() *MockTaskRepositoryMockRecorder {
 }
 
 // FindByID mocks base method.
-func (m *MockTaskRepository) FindByID(ctx context.Context, id task.TaskID) (*task.Task, error) {
+func (m *MockTaskRepository) FindByID(ctx context.Context, taskID task.TaskID) (*task.Task, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindByID", ctx, id)
+	ret := m.ctrl.Call(m, "FindByID", ctx, taskID)
 	ret0, _ := ret[0].(*task.Task)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // FindByID indicates an expected call of FindByID.
-func (mr *MockTaskRepositoryMockRecorder) FindByID(ctx, id interface{}) *gomock.Call {
+func (mr *MockTaskRepositoryMockRecorder) FindByID(ctx, taskID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByID", reflect.TypeOf((*MockTaskRepository)(nil).FindByID), ctx, id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByID", reflect.TypeOf((*MockTaskRepository)(nil).FindByID), ctx, taskID)
 }
 
 // Insert mocks base method.

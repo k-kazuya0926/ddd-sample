@@ -37,15 +37,15 @@ func (m *MockTaskFactory) EXPECT() *MockTaskFactoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockTaskFactory) Create(name task.TaskName, dueDate time.Time, userID user.UserID) task.Task {
+func (m *MockTaskFactory) Create(taskName task.TaskName, dueDate time.Time, userID user.UserID) task.Task {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", name, dueDate, userID)
+	ret := m.ctrl.Call(m, "Create", taskName, dueDate, userID)
 	ret0, _ := ret[0].(task.Task)
 	return ret0
 }
 
 // Create indicates an expected call of Create.
-func (mr *MockTaskFactoryMockRecorder) Create(name, dueDate, userID interface{}) *gomock.Call {
+func (mr *MockTaskFactoryMockRecorder) Create(taskName, dueDate, userID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockTaskFactory)(nil).Create), name, dueDate, userID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockTaskFactory)(nil).Create), taskName, dueDate, userID)
 }

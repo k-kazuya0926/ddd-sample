@@ -7,7 +7,7 @@ import (
 )
 
 type TaskFactory interface {
-	Create(name TaskName, dueDate time.Time, userID user.UserID) Task
+	Create(taskName TaskName, dueDate time.Time, userID user.UserID) Task
 }
 
 type taskFactory struct {
@@ -17,10 +17,10 @@ func NewTaskFactory() TaskFactory {
 	return &taskFactory{}
 }
 
-func (f *taskFactory) Create(name TaskName, dueDate time.Time, userID user.UserID) Task {
+func (f *taskFactory) Create(taskName TaskName, dueDate time.Time, userID user.UserID) Task {
 	return Task{
 		id:            newTaskID(),
-		name:          name,
+		name:          taskName,
 		userID:        userID,
 		status:        TaskStatusUnDone,
 		postponeCount: 0,

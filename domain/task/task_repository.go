@@ -5,6 +5,6 @@ import "context"
 
 type TaskRepository interface {
 	Insert(ctx context.Context, task Task) error
-	FindByID(ctx context.Context, id TaskID) (*Task, error)
+	FindByID(ctx context.Context, taskID TaskID) (*Task, error)
 	Update(ctx context.Context, task Task) error
 }

@@ -13,8 +13,8 @@ func NewUpdateUserHandler(useCase user.UpdateUserUseCase) *UpdateUserHandler {
 }
 
 type UpdateUserRequest struct {
-	UserID string
-	Name   string
+	UserID   string
+	UserName string
 }
 
 type UpdateUserResponse struct {
@@ -22,8 +22,8 @@ type UpdateUserResponse struct {
 
 func (h *UpdateUserHandler) Handle(request UpdateUserRequest) UpdateUserResponse {
 	_, err := h.useCase.Execute(user.UpdateUserUseCaseInput{
-		ID:   request.UserID,
-		Name: request.Name,
+		UserID:   request.UserID,
+		UserName: request.UserName,
 	})
 	if err != nil {
 		panic(err)

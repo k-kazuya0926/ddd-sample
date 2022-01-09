@@ -18,7 +18,7 @@ func TestParseUserID(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "正常系",
+			name: "正常系：26文字",
 			args: args{
 				id: "1234567890123456789012345A",
 			},

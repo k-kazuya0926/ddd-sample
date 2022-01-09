@@ -15,9 +15,9 @@ func NewCreateTaskHandler(useCase task.CreateTaskUseCase) *CreateTaskHandler {
 }
 
 type CreateTaskRequest struct {
-	Name    string
-	DueDate time.Time
-	UserID  string
+	TaskName string
+	DueDate  time.Time
+	UserID   string
 }
 
 type CreateTaskResponse struct {
@@ -31,9 +31,9 @@ func (h *CreateTaskHandler) Handle(request CreateTaskRequest) CreateTaskResponse
 		panic(err)
 	}
 	dto, err := h.useCase.Execute(task.CreateTaskUseCaseInput{
-		Name:    request.Name,
-		DueDate: request.DueDate,
-		UserID:  userID,
+		TaskName: request.TaskName,
+		DueDate:  request.DueDate,
+		UserID:   userID,
 	})
 	if err != nil {
 		panic(err)

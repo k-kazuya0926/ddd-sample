@@ -30,8 +30,8 @@ func NewUpdateUserUseCase(
 }
 
 type UpdateUserUseCaseInput struct {
-	ID   string
-	Name string
+	UserID   string
+	UserName string
 }
 
 type UpdateUserUseCaseDTO struct {
@@ -39,7 +39,7 @@ type UpdateUserUseCaseDTO struct {
 
 func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUseCaseDTO, error) {
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
-		userID, err := domain.ParseUserID(input.ID)
+		userID, err := domain.ParseUserID(input.UserID)
 		if err != nil {
 			return err
 		}
@@ -51,7 +51,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 			return errors.New("ユーザーが存在しません。")
 		}
 
-		userName, err := domain.NewUserName(input.Name)
+		userName, err := domain.NewUserName(input.UserName)
 		if err != nil {
 			return err
 		}

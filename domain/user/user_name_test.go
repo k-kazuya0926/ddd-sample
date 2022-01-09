@@ -16,7 +16,7 @@ func TestNewUserName(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "正常系",
+			name: "正常系：3文字",
 			args: args{
 				name: "あいう",
 			},
@@ -26,7 +26,7 @@ func TestNewUserName(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "異常系：文字数不足",
+			name: "異常系：2文字",
 			args: args{
 				name: "あい",
 			},

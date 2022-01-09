@@ -38,7 +38,7 @@ func Test_registerUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: RegisterUserUseCaseInput{
-					Name: dummyUserName,
+					UserName: dummyUserName,
 				},
 			},
 			want:    RegisterUserUseCaseDTO{UserID: dummyUserIDString},
@@ -55,7 +55,7 @@ func Test_registerUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: RegisterUserUseCaseInput{
-					Name: dummyUserName,
+					UserName: dummyUserName,
 				},
 			},
 			want:    RegisterUserUseCaseDTO{},

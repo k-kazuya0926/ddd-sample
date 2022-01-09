@@ -31,9 +31,9 @@ func NewCreateTaskUseCase(
 }
 
 type CreateTaskUseCaseInput struct {
-	Name    string
-	DueDate time.Time
-	UserID  user.UserID
+	TaskName string
+	DueDate  time.Time
+	UserID   user.UserID
 }
 
 type CreateTaskUseCaseDTO struct {
@@ -43,7 +43,7 @@ type CreateTaskUseCaseDTO struct {
 func (uc *createTaskUseCase) Execute(input CreateTaskUseCaseInput) (CreateTaskUseCaseDTO, error) {
 	var task domain.Task
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
-		taskName, err := domain.NewTaskName(input.Name)
+		taskName, err := domain.NewTaskName(input.TaskName)
 		if err != nil {
 			return err
 		}

@@ -32,7 +32,7 @@ func Test_deleteUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: DeleteUserUseCaseInput{
-					ID: dummyUserIDString,
+					UserID: dummyUserIDString,
 				},
 			},
 			want:    DeleteUserUseCaseDTO{},
@@ -45,7 +45,7 @@ func Test_deleteUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: DeleteUserUseCaseInput{
-					ID: dummyUserIDString,
+					UserID: dummyUserIDString,
 				},
 			},
 			want:    DeleteUserUseCaseDTO{},

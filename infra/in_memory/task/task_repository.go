@@ -19,9 +19,9 @@ func (r *InMemoryTaskRepository) Insert(ctx context.Context, task domain.Task) e
 	return nil
 }
 
-func (r *InMemoryTaskRepository) FindByID(ctx context.Context, id domain.TaskID) (*domain.Task, error) {
+func (r *InMemoryTaskRepository) FindByID(ctx context.Context, taskID domain.TaskID) (*domain.Task, error) {
 	for taskID, task := range r.Store {
-		if taskID == id {
+		if taskID == taskID {
 			return &task, nil
 		}
 	}

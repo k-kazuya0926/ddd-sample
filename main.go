@@ -12,7 +12,7 @@ func main() {
 
 	// ユーザー登録
 	registerUserResponse := registry.registerUserHandler.Handle(user.RegisterUserRequest{
-		Name: "ユーザー1",
+		UserName: "ユーザー1",
 	})
 	fmt.Printf("registerUserResponse: %+v\n", registerUserResponse)
 
@@ -24,16 +24,16 @@ func main() {
 
 	// ユーザー更新
 	updateUserResponse := registry.updateUserHandler.Handle(user.UpdateUserRequest{
-		UserID: registerUserResponse.UserID,
-		Name:   "ユーザー2",
+		UserID:   registerUserResponse.UserID,
+		UserName: "ユーザー2",
 	})
 	fmt.Printf("updateUserResponse: %+v\n", updateUserResponse)
 
 	// タスク作成
 	createTaskResponse := registry.createTaskHandler.Handle(task.CreateTaskRequest{
-		Name:    "タスク1",
-		DueDate: time.Date(2022, 1, 31, 0, 0, 0, 0, time.Local),
-		UserID:  registerUserResponse.UserID,
+		TaskName: "タスク1",
+		DueDate:  time.Date(2022, 1, 31, 0, 0, 0, 0, time.Local),
+		UserID:   registerUserResponse.UserID,
 	})
 	fmt.Printf("createTaskResponse: %+v\n", createTaskResponse)
 

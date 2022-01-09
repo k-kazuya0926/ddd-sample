@@ -35,12 +35,12 @@ func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: FetchUserDetailUseCaseInput{
-					ID: dummyUserIDString,
+					UserID: dummyUserIDString,
 				},
 			},
 			want: FetchUserDetailUseCaseDTO{
-				ID:   dummyUserIDString,
-				Name: dummyUserNameString,
+				UserID:   dummyUserIDString,
+				UserName: dummyUserNameString,
 			},
 			wantErr: false,
 		},
@@ -51,7 +51,7 @@ func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: FetchUserDetailUseCaseInput{
-					ID: dummyUserIDString,
+					UserID: dummyUserIDString,
 				},
 			},
 			wantErr: true,
@@ -63,7 +63,7 @@ func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: FetchUserDetailUseCaseInput{
-					ID: dummyUserIDString,
+					UserID: dummyUserIDString,
 				},
 			},
 			wantErr: true,

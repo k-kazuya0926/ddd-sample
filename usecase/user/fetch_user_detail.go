@@ -21,16 +21,16 @@ func NewFetchUserDetailUseCase(userRepository domain.UserRepository) FetchUserDe
 }
 
 type FetchUserDetailUseCaseInput struct {
-	ID string
+	UserID string
 }
 
 type FetchUserDetailUseCaseDTO struct {
-	ID   string
-	Name string
+	UserID   string
+	UserName string
 }
 
 func (uc *fetchUserDetailUseCase) Execute(input FetchUserDetailUseCaseInput) (FetchUserDetailUseCaseDTO, error) {
-	userID, err := domain.ParseUserID(input.ID)
+	userID, err := domain.ParseUserID(input.UserID)
 	if err != nil {
 		return FetchUserDetailUseCaseDTO{}, err
 	}
@@ -43,7 +43,7 @@ func (uc *fetchUserDetailUseCase) Execute(input FetchUserDetailUseCaseInput) (Fe
 	}
 
 	return FetchUserDetailUseCaseDTO{
-		ID:   user.ID().String(),
-		Name: user.Name().String(),
+		UserID:   user.ID().String(),
+		UserName: user.Name().String(),
 	}, nil
 }

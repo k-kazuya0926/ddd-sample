@@ -48,9 +48,9 @@ func Test_createTaskUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: CreateTaskUseCaseInput{
-					Name:    dummyTaskNameString,
-					DueDate: dummyDueDate,
-					UserID:  dummyUserID,
+					TaskName: dummyTaskNameString,
+					DueDate:  dummyDueDate,
+					UserID:   dummyUserID,
 				},
 			},
 			want: CreateTaskUseCaseDTO{

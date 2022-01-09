@@ -20,14 +20,14 @@ func NewDeleteUserUseCase(userRepository domain.UserRepository) DeleteUserUseCas
 }
 
 type DeleteUserUseCaseInput struct {
-	ID string
+	UserID string
 }
 
 type DeleteUserUseCaseDTO struct {
 }
 
 func (uc *deleteUserUseCase) Execute(input DeleteUserUseCaseInput) (DeleteUserUseCaseDTO, error) {
-	userID, err := domain.ParseUserID(input.ID)
+	userID, err := domain.ParseUserID(input.UserID)
 	if err != nil {
 		return DeleteUserUseCaseDTO{}, err
 	}

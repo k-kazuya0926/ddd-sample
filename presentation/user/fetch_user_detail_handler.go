@@ -17,20 +17,20 @@ type FetchUserDetailRequest struct {
 }
 
 type FetchUserDetailResponse struct {
-	UserID string
-	Name   string
+	UserID   string
+	UserName string
 }
 
 func (h *FetchUserDetailHandler) Handle(request FetchUserDetailRequest) FetchUserDetailResponse {
 	dto, err := h.useCase.Execute(user.FetchUserDetailUseCaseInput{
-		ID: request.UserID,
+		UserID: request.UserID,
 	})
 	if err != nil {
 		panic(err)
 	}
 
 	return FetchUserDetailResponse{
-		UserID: dto.ID,
-		Name:   dto.Name,
+		UserID:   dto.UserID,
+		UserName: dto.UserName,
 	}
 }

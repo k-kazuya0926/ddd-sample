@@ -2,7 +2,7 @@
 package user
 
 type UserFactory interface {
-	Create(name UserName) User
+	Create(userName UserName) User
 }
 
 type userFactory struct {
@@ -12,9 +12,9 @@ func NewUserFactory() UserFactory {
 	return &userFactory{}
 }
 
-func (f *userFactory) Create(name UserName) User {
+func (f *userFactory) Create(userName UserName) User {
 	return User{
 		id:   newUserID(),
-		name: name,
+		name: userName,
 	}
 }

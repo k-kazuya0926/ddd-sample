@@ -38,8 +38,8 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
-					ID:   dummyUserIDString,
-					Name: "ダミーユーザー2",
+					UserID:   dummyUserIDString,
+					UserName: "ダミーユーザー2",
 				},
 			},
 			want:    UpdateUserUseCaseDTO{},
@@ -52,8 +52,8 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
-					ID:   dummyUserIDString,
-					Name: "ダミーユーザー2",
+					UserID:   dummyUserIDString,
+					UserName: "ダミーユーザー2",
 				},
 			},
 			want:    UpdateUserUseCaseDTO{},
@@ -69,8 +69,8 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 			},
 			args: args{
 				input: UpdateUserUseCaseInput{
-					ID:   dummyUserIDString,
-					Name: "ダミーユーザー2",
+					UserID:   dummyUserIDString,
+					UserName: "ダミーユーザー2",
 				},
 			},
 			want:    UpdateUserUseCaseDTO{},

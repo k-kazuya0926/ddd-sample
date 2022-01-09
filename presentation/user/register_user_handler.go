@@ -13,7 +13,7 @@ func NewRegisterUserHandler(useCase user.RegisterUserUseCase) *RegisterUserHandl
 }
 
 type RegisterUserRequest struct {
-	Name string
+	UserName string
 }
 
 type RegisterUserResponse struct {
@@ -22,7 +22,7 @@ type RegisterUserResponse struct {
 
 func (h *RegisterUserHandler) Handle(request RegisterUserRequest) RegisterUserResponse {
 	dto, err := h.useCase.Execute(user.RegisterUserUseCaseInput{
-		Name: request.Name,
+		UserName: request.UserName,
 	})
 	if err != nil {
 		panic(err)

@@ -33,7 +33,7 @@ func NewRegisterUserUseCase(
 }
 
 type RegisterUserUseCaseInput struct {
-	Name string
+	UserName string
 }
 
 type RegisterUserUseCaseDTO struct {
@@ -43,7 +43,7 @@ type RegisterUserUseCaseDTO struct {
 func (uc *registerUserUseCase) Execute(input RegisterUserUseCaseInput) (RegisterUserUseCaseDTO, error) {
 	var user domain.User
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
-		userName, err := domain.NewUserName(input.Name)
+		userName, err := domain.NewUserName(input.UserName)
 		if err != nil {
 			return err
 		}
