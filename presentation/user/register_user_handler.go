@@ -1,6 +1,7 @@
 package user
 
 import (
+	"ddd-sample/presentation/shared/error"
 	"ddd-sample/usecase/user"
 )
 
@@ -25,7 +26,8 @@ func (h *RegisterUserHandler) Handle(request RegisterUserRequest) RegisterUserRe
 		UserName: request.UserName,
 	})
 	if err != nil {
-		panic(err)
+		error.HandleError(err)
+		return RegisterUserResponse{}
 	}
 
 	return RegisterUserResponse{UserID: dto.UserID}

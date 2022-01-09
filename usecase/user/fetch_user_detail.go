@@ -3,7 +3,8 @@ package user
 import (
 	"context"
 	domain "ddd-sample/domain/user"
-	"errors"
+	usecase_error "ddd-sample/usecase/shared/error"
+	"fmt"
 )
 
 type FetchUserDetailUseCase interface {
@@ -39,7 +40,7 @@ func (uc *fetchUserDetailUseCase) Execute(input FetchUserDetailUseCaseInput) (Fe
 		return FetchUserDetailUseCaseDTO{}, err
 	}
 	if user == nil {
-		return FetchUserDetailUseCaseDTO{}, errors.New("ユーザーが存在しません。")
+		return FetchUserDetailUseCaseDTO{}, fmt.Errorf("%w", usecase_error.NewUseCaseError("ユーザーが存在しません。"))
 	}
 
 	return FetchUserDetailUseCaseDTO{

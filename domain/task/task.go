@@ -1,8 +1,9 @@
 package task
 
 import (
+	domain_error "ddd-sample/domain/shared/error"
 	"ddd-sample/domain/user"
-	"errors"
+	"fmt"
 	"time"
 )
 
@@ -37,7 +38,7 @@ func ReconstructTask(
 
 func (t *Task) Postpone() error {
 	if t.postponeCount >= maxPostponeCount {
-		return errors.New("最大延期回数を超えています")
+		return fmt.Errorf("%w", domain_error.NewDomainError("最大延期回数を超えています"))
 	}
 	t.dueDate = t.dueDate.AddDate(0, 0, 1)
 	t.postponeCount += 1

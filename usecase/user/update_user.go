@@ -3,8 +3,9 @@ package user
 import (
 	"context"
 	domain "ddd-sample/domain/user"
+	usecase_error "ddd-sample/usecase/shared/error"
 	"ddd-sample/usecase/transaction"
-	"errors"
+	"fmt"
 )
 
 type UpdateUserUseCase interface {
@@ -48,7 +49,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 			return err
 		}
 		if user == nil {
-			return errors.New("ユーザーが存在しません。")
+			return fmt.Errorf("%w", usecase_error.NewUseCaseError("ユーザーが存在しません。"))
 		}
 
 		userName, err := domain.NewUserName(input.UserName)
@@ -63,7 +64,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 			return err
 		}
 		if userExists {
-			return errors.New("すでに登録されています。")
+			return fmt.Errorf("%w", usecase_error.NewUseCaseError("すでに登録されています。"))
 		}
 
 		err = uc.userRepository.Update(ctx, *user)

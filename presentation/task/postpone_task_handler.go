@@ -1,6 +1,7 @@
 package task
 
 import (
+	"ddd-sample/presentation/shared/error"
 	"ddd-sample/usecase/task"
 	"time"
 )
@@ -27,7 +28,8 @@ func (h *PostponeTaskHandler) Handle(request PostponeTaskRequest) PostponeTaskRe
 		TaskID: request.TaskID,
 	})
 	if err != nil {
-		panic(err)
+		error.HandleError(err)
+		return PostponeTaskResponse{}
 	}
 
 	return PostponeTaskResponse{

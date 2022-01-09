@@ -3,8 +3,9 @@ package task
 import (
 	"context"
 	domain "ddd-sample/domain/task"
+	usecase_error "ddd-sample/usecase/shared/error"
 	"ddd-sample/usecase/transaction"
-	"errors"
+	"fmt"
 	"time"
 )
 
@@ -48,7 +49,7 @@ func (uc *postponeTaskUseCase) Execute(input PostponeTaskUseCaseInput) (Postpone
 			return err
 		}
 		if task == nil {
-			return errors.New("タスクが存在しません。")
+			return fmt.Errorf("%w", usecase_error.NewUseCaseError("タスクが存在しません。"))
 		}
 
 		task.Postpone()

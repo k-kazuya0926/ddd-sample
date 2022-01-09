@@ -1,6 +1,7 @@
 package user
 
 import (
+	"ddd-sample/presentation/shared/error"
 	"ddd-sample/usecase/user"
 )
 
@@ -26,7 +27,8 @@ func (h *FetchUserDetailHandler) Handle(request FetchUserDetailRequest) FetchUse
 		UserID: request.UserID,
 	})
 	if err != nil {
-		panic(err)
+		error.HandleError(err)
+		return FetchUserDetailResponse{}
 	}
 
 	return FetchUserDetailResponse{

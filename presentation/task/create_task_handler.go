@@ -2,6 +2,7 @@ package task
 
 import (
 	"ddd-sample/domain/user"
+	"ddd-sample/presentation/shared/error"
 	"ddd-sample/usecase/task"
 	"time"
 )
@@ -36,7 +37,8 @@ func (h *CreateTaskHandler) Handle(request CreateTaskRequest) CreateTaskResponse
 		UserID:   userID,
 	})
 	if err != nil {
-		panic(err)
+		error.HandleError(err)
+		return CreateTaskResponse{}
 	}
 
 	return CreateTaskResponse{TaskID: dto.TaskID}

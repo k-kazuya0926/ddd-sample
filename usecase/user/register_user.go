@@ -3,8 +3,9 @@ package user
 import (
 	"context"
 	domain "ddd-sample/domain/user"
+	usecase_error "ddd-sample/usecase/shared/error"
 	"ddd-sample/usecase/transaction"
-	"errors"
+	"fmt"
 )
 
 type RegisterUserUseCase interface {
@@ -55,7 +56,7 @@ func (uc *registerUserUseCase) Execute(input RegisterUserUseCaseInput) (Register
 			return err
 		}
 		if userExists {
-			return errors.New("すでに登録されています。")
+			return fmt.Errorf("%w", usecase_error.NewUseCaseError("すでに登録されています。"))
 		}
 
 		err = uc.userRepository.Insert(ctx, user)
