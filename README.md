@@ -5,11 +5,11 @@ DDD(ドメイン駆動設計)のサンプル
 ## ユースケース図
 
 
-<img src="https://user-images.githubusercontent.com/61341861/148669646-139845b4-fe21-4fb9-b267-c2a074c3737a.png" width="800" />"
+<img src="https://user-images.githubusercontent.com/61341861/148705702-d8328e58-87e5-4f65-9c39-dc1b5401f377.png" width="800" />"
 
 ## ドメインモデル図/オブジェクト図
 
-<img src="https://user-images.githubusercontent.com/61341861/148699095-89d897dd-5c45-44e5-a7be-892565d9eb01.png" width="800" />"
+<img src="https://user-images.githubusercontent.com/61341861/148705715-bc263f99-d656-4f96-88e0-d8f8285833f0.png" width="800" />"
 
 ## 使用技術
 - Go 1.17
