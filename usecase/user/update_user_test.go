@@ -19,13 +19,13 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 		dummyUser         = domain.ReconstructUser(dummyUserID, dummyUserName)
 	)
 	type args struct {
-		input UpdateUserUseCaseInput
+		input UpdateUserParam
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(m *mock_user.MockUserRepository)
 		args          args
-		want          UpdateUserUseCaseDTO
+		want          UpdateUserDTO
 		wantErr       bool
 	}{
 		{
@@ -37,12 +37,12 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().Update(gomock.Any(), domain.ReconstructUser(dummyUserID, userName)).Return(nil)
 			},
 			args: args{
-				input: UpdateUserUseCaseInput{
+				input: UpdateUserParam{
 					UserID:   dummyUserIDString,
 					UserName: "ダミーユーザー2",
 				},
 			},
-			want:    UpdateUserUseCaseDTO{},
+			want:    UpdateUserDTO{},
 			wantErr: false,
 		},
 		{
@@ -51,12 +51,12 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(nil, nil)
 			},
 			args: args{
-				input: UpdateUserUseCaseInput{
+				input: UpdateUserParam{
 					UserID:   dummyUserIDString,
 					UserName: "ダミーユーザー2",
 				},
 			},
-			want:    UpdateUserUseCaseDTO{},
+			want:    UpdateUserDTO{},
 			wantErr: true,
 		},
 		{
@@ -68,12 +68,12 @@ func Test_updateUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByName(gomock.Any(), userName).Return(&duplicateUser, nil)
 			},
 			args: args{
-				input: UpdateUserUseCaseInput{
+				input: UpdateUserParam{
 					UserID:   dummyUserIDString,
 					UserName: "ダミーユーザー2",
 				},
 			},
-			want:    UpdateUserUseCaseDTO{},
+			want:    UpdateUserDTO{},
 			wantErr: true,
 		},
 	}

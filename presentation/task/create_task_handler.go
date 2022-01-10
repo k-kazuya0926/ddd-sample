@@ -31,7 +31,7 @@ func (h *CreateTaskHandler) Handle(request CreateTaskRequest) CreateTaskResponse
 	if err != nil {
 		panic(err)
 	}
-	dto, err := h.useCase.Execute(task.CreateTaskUseCaseInput{
+	dto, err := h.useCase.Execute(task.CreateTaskParam{
 		TaskName: request.TaskName,
 		DueDate:  request.DueDate,
 		UserID:   userID,

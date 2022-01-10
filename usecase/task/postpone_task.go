@@ -10,7 +10,7 @@ import (
 )
 
 type PostponeTaskUseCase interface {
-	Execute(input PostponeTaskUseCaseInput) (PostponeTaskUseCaseDTO, error)
+	Execute(input PostponeTaskParam) (PostponeTaskDTO, error)
 }
 
 type postponeTaskUseCase struct {
@@ -28,16 +28,16 @@ func NewPostponeTaskUseCase(
 	}
 }
 
-type PostponeTaskUseCaseInput struct {
+type PostponeTaskParam struct {
 	TaskID string
 }
 
-type PostponeTaskUseCaseDTO struct {
+type PostponeTaskDTO struct {
 	PostponeCount uint64
 	DueDate       time.Time
 }
 
-func (uc *postponeTaskUseCase) Execute(input PostponeTaskUseCaseInput) (PostponeTaskUseCaseDTO, error) {
+func (uc *postponeTaskUseCase) Execute(input PostponeTaskParam) (PostponeTaskDTO, error) {
 	var task *domain.Task
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
 		taskID, err := domain.ParseTaskID(input.TaskID)
@@ -64,9 +64,9 @@ func (uc *postponeTaskUseCase) Execute(input PostponeTaskUseCaseInput) (Postpone
 		return nil
 	})
 	if err != nil {
-		return PostponeTaskUseCaseDTO{}, err
+		return PostponeTaskDTO{}, err
 	}
-	return PostponeTaskUseCaseDTO{
+	return PostponeTaskDTO{
 		PostponeCount: task.PostponeCount(),
 		DueDate:       task.DueDate(),
 	}, nil

@@ -23,7 +23,7 @@ type FetchUserDetailResponse struct {
 }
 
 func (h *FetchUserDetailHandler) Handle(request FetchUserDetailRequest) FetchUserDetailResponse {
-	dto, err := h.useCase.Execute(user.FetchUserDetailUseCaseInput{
+	dto, err := h.useCase.Execute(user.FetchUserDetailParam{
 		UserID: request.UserID,
 	})
 	if err != nil {

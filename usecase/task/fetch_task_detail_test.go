@@ -26,13 +26,13 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 		dummyDueDate        = time.Date(2022, 1, 31, 0, 0, 0, 0, time.Local)
 	)
 	type args struct {
-		input FetchTaskDetailUseCaseInput
+		input FetchTaskDetailParam
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(*mock_task.MockTaskRepository, *mock_user.MockUserRepository)
 		args          args
-		want          FetchTaskDetailUseCaseDTO
+		want          FetchTaskDetailDTO
 		wantErr       bool
 	}{
 		{
@@ -52,11 +52,11 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(&user, nil)
 			},
 			args: args{
-				input: FetchTaskDetailUseCaseInput{
+				input: FetchTaskDetailParam{
 					TaskID: dummyTaskIDString,
 				},
 			},
-			want: FetchTaskDetailUseCaseDTO{
+			want: FetchTaskDetailDTO{
 				TaskID:        dummyTaskIDString,
 				TaskName:      dummyTaskNameString,
 				UserName:      dummyUserNameString,
@@ -72,7 +72,7 @@ func Test_fetchTaskDetailUseCase_Execute(t *testing.T) {
 				mockTaskRepository.EXPECT().FindByID(gomock.Any(), dummyTaskID).Return(nil, nil)
 			},
 			args: args{
-				input: FetchTaskDetailUseCaseInput{
+				input: FetchTaskDetailParam{
 					TaskID: dummyTaskIDString,
 				},
 			},

@@ -8,7 +8,7 @@ import (
 )
 
 type FetchUserDetailUseCase interface {
-	Execute(input FetchUserDetailUseCaseInput) (FetchUserDetailUseCaseDTO, error)
+	Execute(input FetchUserDetailParam) (FetchUserDetailDTO, error)
 }
 
 type fetchUserDetailUseCase struct {
@@ -21,29 +21,29 @@ func NewFetchUserDetailUseCase(userRepository domain.UserRepository) FetchUserDe
 	}
 }
 
-type FetchUserDetailUseCaseInput struct {
+type FetchUserDetailParam struct {
 	UserID string
 }
 
-type FetchUserDetailUseCaseDTO struct {
+type FetchUserDetailDTO struct {
 	UserID   string
 	UserName string
 }
 
-func (uc *fetchUserDetailUseCase) Execute(input FetchUserDetailUseCaseInput) (FetchUserDetailUseCaseDTO, error) {
+func (uc *fetchUserDetailUseCase) Execute(input FetchUserDetailParam) (FetchUserDetailDTO, error) {
 	userID, err := domain.ParseUserID(input.UserID)
 	if err != nil {
-		return FetchUserDetailUseCaseDTO{}, err
+		return FetchUserDetailDTO{}, err
 	}
 	user, err := uc.userRepository.FindByID(context.Background(), userID)
 	if err != nil {
-		return FetchUserDetailUseCaseDTO{}, err
+		return FetchUserDetailDTO{}, err
 	}
 	if user == nil {
-		return FetchUserDetailUseCaseDTO{}, fmt.Errorf("%w", usecase_error.NewUseCaseError("ユーザーが存在しません。"))
+		return FetchUserDetailDTO{}, fmt.Errorf("%w", usecase_error.NewUseCaseError("ユーザーが存在しません。"))
 	}
 
-	return FetchUserDetailUseCaseDTO{
+	return FetchUserDetailDTO{
 		UserID:   user.ID().String(),
 		UserName: user.Name().String(),
 	}, nil

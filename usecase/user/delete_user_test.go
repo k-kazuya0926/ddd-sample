@@ -16,13 +16,13 @@ func Test_deleteUserUseCase_Execute(t *testing.T) {
 		dummyUserID, _    = domain.ParseUserID(dummyUserIDString)
 	)
 	type args struct {
-		input DeleteUserUseCaseInput
+		input DeleteUserParam
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(m *mock_user.MockUserRepository)
 		args          args
-		want          DeleteUserUseCaseDTO
+		want          DeleteUserDTO
 		wantErr       bool
 	}{
 		{
@@ -31,11 +31,11 @@ func Test_deleteUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().Delete(gomock.Any(), dummyUserID).Return(nil)
 			},
 			args: args{
-				input: DeleteUserUseCaseInput{
+				input: DeleteUserParam{
 					UserID: dummyUserIDString,
 				},
 			},
-			want:    DeleteUserUseCaseDTO{},
+			want:    DeleteUserDTO{},
 			wantErr: false,
 		},
 		{
@@ -44,11 +44,11 @@ func Test_deleteUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().Delete(gomock.Any(), dummyUserID).Return(errors.New("dummy"))
 			},
 			args: args{
-				input: DeleteUserUseCaseInput{
+				input: DeleteUserParam{
 					UserID: dummyUserIDString,
 				},
 			},
-			want:    DeleteUserUseCaseDTO{},
+			want:    DeleteUserDTO{},
 			wantErr: true,
 		},
 	}

@@ -23,13 +23,13 @@ func Test_postponeTaskUseCase_Execute(t *testing.T) {
 		dummyDueDate        = time.Date(2022, 1, 31, 0, 0, 0, 0, time.Local)
 	)
 	type args struct {
-		input PostponeTaskUseCaseInput
+		input PostponeTaskParam
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(*mock_task.MockTaskRepository)
 		args          args
-		want          PostponeTaskUseCaseDTO
+		want          PostponeTaskDTO
 		wantErr       bool
 	}{
 		{
@@ -55,11 +55,11 @@ func Test_postponeTaskUseCase_Execute(t *testing.T) {
 				mockTaskRepository.EXPECT().Update(gomock.Any(), postponedTask).Return(nil)
 			},
 			args: args{
-				input: PostponeTaskUseCaseInput{
+				input: PostponeTaskParam{
 					TaskID: dummyTaskIDString,
 				},
 			},
-			want: PostponeTaskUseCaseDTO{
+			want: PostponeTaskDTO{
 				PostponeCount: 1,
 				DueDate:       dummyDueDate.AddDate(0, 0, 1),
 			},
@@ -71,7 +71,7 @@ func Test_postponeTaskUseCase_Execute(t *testing.T) {
 				mockTaskRepository.EXPECT().FindByID(gomock.Any(), dummyTaskID).Return(nil, nil)
 			},
 			args: args{
-				input: PostponeTaskUseCaseInput{
+				input: PostponeTaskParam{
 					TaskID: dummyTaskIDString,
 				},
 			},
@@ -91,7 +91,7 @@ func Test_postponeTaskUseCase_Execute(t *testing.T) {
 				mockTaskRepository.EXPECT().FindByID(gomock.Any(), dummyTaskID).Return(&task, nil)
 			},
 			args: args{
-				input: PostponeTaskUseCaseInput{
+				input: PostponeTaskParam{
 					TaskID: dummyTaskIDString,
 				},
 			},

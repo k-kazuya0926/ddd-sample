@@ -22,7 +22,7 @@ type RegisterUserResponse struct {
 }
 
 func (h *RegisterUserHandler) Handle(request RegisterUserRequest) RegisterUserResponse {
-	dto, err := h.useCase.Execute(user.RegisterUserUseCaseInput{
+	dto, err := h.useCase.Execute(user.RegisterUserParam{
 		UserName: request.UserName,
 	})
 	if err != nil {

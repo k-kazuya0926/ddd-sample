@@ -11,7 +11,7 @@ import (
 )
 
 type FetchTaskDetailUseCase interface {
-	Execute(input FetchTaskDetailUseCaseInput) (FetchTaskDetailUseCaseDTO, error)
+	Execute(input FetchTaskDetailParam) (FetchTaskDetailDTO, error)
 }
 
 type fetchTaskDetailUseCase struct {
@@ -32,11 +32,11 @@ func NewFetchTaskDetailUseCase(
 	}
 }
 
-type FetchTaskDetailUseCaseInput struct {
+type FetchTaskDetailParam struct {
 	TaskID string
 }
 
-type FetchTaskDetailUseCaseDTO struct {
+type FetchTaskDetailDTO struct {
 	TaskID        string
 	TaskName      string
 	UserName      string
@@ -45,7 +45,7 @@ type FetchTaskDetailUseCaseDTO struct {
 	DueDate       time.Time
 }
 
-func (uc *fetchTaskDetailUseCase) Execute(input FetchTaskDetailUseCaseInput) (FetchTaskDetailUseCaseDTO, error) {
+func (uc *fetchTaskDetailUseCase) Execute(input FetchTaskDetailParam) (FetchTaskDetailDTO, error) {
 	var task *domain.Task
 	var user *domain_user.User
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
@@ -69,9 +69,9 @@ func (uc *fetchTaskDetailUseCase) Execute(input FetchTaskDetailUseCaseInput) (Fe
 		return nil
 	})
 	if err != nil {
-		return FetchTaskDetailUseCaseDTO{}, err
+		return FetchTaskDetailDTO{}, err
 	}
-	return FetchTaskDetailUseCaseDTO{
+	return FetchTaskDetailDTO{
 		TaskID:        task.ID().String(),
 		TaskName:      task.Name().String(),
 		UserName:      user.Name().String(),

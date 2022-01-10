@@ -19,13 +19,13 @@ func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 		dummyUser           = domain.ReconstructUser(dummyUserID, dummyUserName)
 	)
 	type args struct {
-		input FetchUserDetailUseCaseInput
+		input FetchUserDetailParam
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(m *mock_user.MockUserRepository)
 		args          args
-		want          FetchUserDetailUseCaseDTO
+		want          FetchUserDetailDTO
 		wantErr       bool
 	}{
 		{
@@ -34,11 +34,11 @@ func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(&dummyUser, nil)
 			},
 			args: args{
-				input: FetchUserDetailUseCaseInput{
+				input: FetchUserDetailParam{
 					UserID: dummyUserIDString,
 				},
 			},
-			want: FetchUserDetailUseCaseDTO{
+			want: FetchUserDetailDTO{
 				UserID:   dummyUserIDString,
 				UserName: dummyUserNameString,
 			},
@@ -50,7 +50,7 @@ func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(nil, errors.New("dummy"))
 			},
 			args: args{
-				input: FetchUserDetailUseCaseInput{
+				input: FetchUserDetailParam{
 					UserID: dummyUserIDString,
 				},
 			},
@@ -62,7 +62,7 @@ func Test_fetchUserDetailUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByID(gomock.Any(), dummyUserID).Return(nil, nil)
 			},
 			args: args{
-				input: FetchUserDetailUseCaseInput{
+				input: FetchUserDetailParam{
 					UserID: dummyUserIDString,
 				},
 			},

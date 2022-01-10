@@ -23,13 +23,13 @@ func Test_createTaskUseCase_Execute(t *testing.T) {
 		dummyDueDate        = time.Date(2022, 1, 31, 0, 0, 0, 0, time.Local)
 	)
 	type args struct {
-		input CreateTaskUseCaseInput
+		input CreateTaskParam
 	}
 	tests := []struct {
 		name          string
 		prepareMockFn func(*mock_task.MockTaskFactory, *mock_task.MockTaskRepository)
 		args          args
-		want          CreateTaskUseCaseDTO
+		want          CreateTaskDTO
 		wantErr       bool
 	}{
 		{
@@ -47,13 +47,13 @@ func Test_createTaskUseCase_Execute(t *testing.T) {
 				mockTaskRepository.EXPECT().Insert(gomock.Any(), task).Return(nil)
 			},
 			args: args{
-				input: CreateTaskUseCaseInput{
+				input: CreateTaskParam{
 					TaskName: dummyTaskNameString,
 					DueDate:  dummyDueDate,
 					UserID:   dummyUserID,
 				},
 			},
-			want: CreateTaskUseCaseDTO{
+			want: CreateTaskDTO{
 				TaskID: dummyTaskIDString,
 			},
 			wantErr: false,

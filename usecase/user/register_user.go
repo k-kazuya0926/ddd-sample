@@ -9,7 +9,7 @@ import (
 )
 
 type RegisterUserUseCase interface {
-	Execute(input RegisterUserUseCaseInput) (RegisterUserUseCaseDTO, error)
+	Execute(input RegisterUserParam) (RegisterUserUseCaseDTO, error)
 }
 
 type registerUserUseCase struct {
@@ -33,7 +33,7 @@ func NewRegisterUserUseCase(
 	}
 }
 
-type RegisterUserUseCaseInput struct {
+type RegisterUserParam struct {
 	UserName string
 }
 
@@ -41,7 +41,7 @@ type RegisterUserUseCaseDTO struct {
 	UserID string
 }
 
-func (uc *registerUserUseCase) Execute(input RegisterUserUseCaseInput) (RegisterUserUseCaseDTO, error) {
+func (uc *registerUserUseCase) Execute(input RegisterUserParam) (RegisterUserUseCaseDTO, error) {
 	var user domain.User
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
 		userName, err := domain.NewUserName(input.UserName)

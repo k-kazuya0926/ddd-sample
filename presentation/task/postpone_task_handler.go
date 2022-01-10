@@ -24,7 +24,7 @@ type PostponeTaskResponse struct {
 }
 
 func (h *PostponeTaskHandler) Handle(request PostponeTaskRequest) PostponeTaskResponse {
-	dto, err := h.useCase.Execute(task.PostponeTaskUseCaseInput{
+	dto, err := h.useCase.Execute(task.PostponeTaskParam{
 		TaskID: request.TaskID,
 	})
 	if err != nil {

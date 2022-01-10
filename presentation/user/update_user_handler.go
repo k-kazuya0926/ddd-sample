@@ -22,7 +22,7 @@ type UpdateUserResponse struct {
 }
 
 func (h *UpdateUserHandler) Handle(request UpdateUserRequest) UpdateUserResponse {
-	_, err := h.useCase.Execute(user.UpdateUserUseCaseInput{
+	_, err := h.useCase.Execute(user.UpdateUserParam{
 		UserID:   request.UserID,
 		UserName: request.UserName,
 	})

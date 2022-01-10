@@ -9,7 +9,7 @@ import (
 )
 
 type CreateTaskUseCase interface {
-	Execute(input CreateTaskUseCaseInput) (CreateTaskUseCaseDTO, error)
+	Execute(input CreateTaskParam) (CreateTaskDTO, error)
 }
 
 type createTaskUseCase struct {
@@ -30,17 +30,17 @@ func NewCreateTaskUseCase(
 	}
 }
 
-type CreateTaskUseCaseInput struct {
+type CreateTaskParam struct {
 	TaskName string
 	DueDate  time.Time
 	UserID   user.UserID
 }
 
-type CreateTaskUseCaseDTO struct {
+type CreateTaskDTO struct {
 	TaskID string
 }
 
-func (uc *createTaskUseCase) Execute(input CreateTaskUseCaseInput) (CreateTaskUseCaseDTO, error) {
+func (uc *createTaskUseCase) Execute(input CreateTaskParam) (CreateTaskDTO, error) {
 	var task domain.Task
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
 		taskName, err := domain.NewTaskName(input.TaskName)
@@ -54,7 +54,7 @@ func (uc *createTaskUseCase) Execute(input CreateTaskUseCaseInput) (CreateTaskUs
 		return nil
 	})
 	if err != nil {
-		return CreateTaskUseCaseDTO{}, err
+		return CreateTaskDTO{}, err
 	}
-	return CreateTaskUseCaseDTO{TaskID: task.ID().String()}, nil
+	return CreateTaskDTO{TaskID: task.ID().String()}, nil
 }

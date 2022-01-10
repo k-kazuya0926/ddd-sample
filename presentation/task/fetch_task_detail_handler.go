@@ -28,7 +28,7 @@ type FetchTaskDetailResponse struct {
 }
 
 func (h *FetchTaskDetailHandler) Handle(request FetchTaskDetailRequest) FetchTaskDetailResponse {
-	dto, err := h.useCase.Execute(task.FetchTaskDetailUseCaseInput{
+	dto, err := h.useCase.Execute(task.FetchTaskDetailParam{
 		TaskID: request.TaskID,
 	})
 	if err != nil {

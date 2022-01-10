@@ -18,7 +18,7 @@ func Test_registerUserUseCase_Execute(t *testing.T) {
 		dummyUserName     = "ダミーユーザー"
 	)
 	type args struct {
-		input RegisterUserUseCaseInput
+		input RegisterUserParam
 	}
 	tests := []struct {
 		name          string
@@ -37,7 +37,7 @@ func Test_registerUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().Insert(gomock.Any(), domain.ReconstructUser(dummyUserID, userName)).Return(nil)
 			},
 			args: args{
-				input: RegisterUserUseCaseInput{
+				input: RegisterUserParam{
 					UserName: dummyUserName,
 				},
 			},
@@ -54,7 +54,7 @@ func Test_registerUserUseCase_Execute(t *testing.T) {
 				mockUserRepository.EXPECT().FindByName(gomock.Any(), userName).Return(&duplicateUser, nil)
 			},
 			args: args{
-				input: RegisterUserUseCaseInput{
+				input: RegisterUserParam{
 					UserName: dummyUserName,
 				},
 			},

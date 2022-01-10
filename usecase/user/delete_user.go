@@ -6,7 +6,7 @@ import (
 )
 
 type DeleteUserUseCase interface {
-	Execute(input DeleteUserUseCaseInput) (DeleteUserUseCaseDTO, error)
+	Execute(input DeleteUserParam) (DeleteUserDTO, error)
 }
 
 type deleteUserUseCase struct {
@@ -19,22 +19,22 @@ func NewDeleteUserUseCase(userRepository domain.UserRepository) DeleteUserUseCas
 	}
 }
 
-type DeleteUserUseCaseInput struct {
+type DeleteUserParam struct {
 	UserID string
 }
 
-type DeleteUserUseCaseDTO struct {
+type DeleteUserDTO struct {
 }
 
-func (uc *deleteUserUseCase) Execute(input DeleteUserUseCaseInput) (DeleteUserUseCaseDTO, error) {
+func (uc *deleteUserUseCase) Execute(input DeleteUserParam) (DeleteUserDTO, error) {
 	userID, err := domain.ParseUserID(input.UserID)
 	if err != nil {
-		return DeleteUserUseCaseDTO{}, err
+		return DeleteUserDTO{}, err
 	}
 	err = uc.userRepository.Delete(context.Background(), userID)
 	if err != nil {
-		return DeleteUserUseCaseDTO{}, err
+		return DeleteUserDTO{}, err
 	}
 
-	return DeleteUserUseCaseDTO{}, nil
+	return DeleteUserDTO{}, nil
 }

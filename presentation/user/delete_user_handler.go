@@ -21,7 +21,7 @@ type DeleteUserResponse struct {
 }
 
 func (h *DeleteUserHandler) Handle(request DeleteUserRequest) DeleteUserResponse {
-	_, err := h.useCase.Execute(user.DeleteUserUseCaseInput{
+	_, err := h.useCase.Execute(user.DeleteUserParam{
 		UserID: request.UserID,
 	})
 	if err != nil {

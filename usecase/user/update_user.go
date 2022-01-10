@@ -9,7 +9,7 @@ import (
 )
 
 type UpdateUserUseCase interface {
-	Execute(input UpdateUserUseCaseInput) (UpdateUserUseCaseDTO, error)
+	Execute(input UpdateUserParam) (UpdateUserDTO, error)
 }
 
 type updateUserUseCase struct {
@@ -30,15 +30,15 @@ func NewUpdateUserUseCase(
 	}
 }
 
-type UpdateUserUseCaseInput struct {
+type UpdateUserParam struct {
 	UserID   string
 	UserName string
 }
 
-type UpdateUserUseCaseDTO struct {
+type UpdateUserDTO struct {
 }
 
-func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUseCaseDTO, error) {
+func (uc *updateUserUseCase) Execute(input UpdateUserParam) (UpdateUserDTO, error) {
 	err := uc.transaction.DoInTx(context.Background(), func(ctx context.Context) error {
 		userID, err := domain.ParseUserID(input.UserID)
 		if err != nil {
@@ -75,7 +75,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserUseCaseInput) (UpdateUserUs
 		return nil
 	})
 	if err != nil {
-		return UpdateUserUseCaseDTO{}, err
+		return UpdateUserDTO{}, err
 	}
-	return UpdateUserUseCaseDTO{}, nil
+	return UpdateUserDTO{}, nil
 }
