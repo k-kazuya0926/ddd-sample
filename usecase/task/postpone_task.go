@@ -49,7 +49,7 @@ func (uc *postponeTaskUseCase) Execute(input PostponeTaskParam) (PostponeTaskDTO
 			return err
 		}
 		if task == nil {
-			return fmt.Errorf("%w", usecase_error.NewUseCaseError("タスクが存在しません。"))
+			return fmt.Errorf("%w", usecase_error.TaskNotFoundError)
 		}
 
 		if err = task.Postpone(); err != nil {

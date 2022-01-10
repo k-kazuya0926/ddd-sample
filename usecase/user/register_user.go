@@ -56,7 +56,7 @@ func (uc *registerUserUseCase) Execute(input RegisterUserParam) (RegisterUserUse
 			return err
 		}
 		if userExists {
-			return fmt.Errorf("%w", usecase_error.NewUseCaseError("すでに登録されています。"))
+			return fmt.Errorf("%w", usecase_error.UserDuplicatedError)
 		}
 
 		err = uc.userRepository.Insert(ctx, user)

@@ -49,7 +49,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserParam) (UpdateUserDTO, erro
 			return err
 		}
 		if user == nil {
-			return fmt.Errorf("%w", usecase_error.NewUseCaseError("ユーザーが存在しません。"))
+			return fmt.Errorf("%w", usecase_error.UserNotFoundError)
 		}
 
 		userName, err := domain.NewUserName(input.UserName)
@@ -64,7 +64,7 @@ func (uc *updateUserUseCase) Execute(input UpdateUserParam) (UpdateUserDTO, erro
 			return err
 		}
 		if userExists {
-			return fmt.Errorf("%w", usecase_error.NewUseCaseError("すでに登録されています。"))
+			return fmt.Errorf("%w", usecase_error.UserDuplicatedError)
 		}
 
 		err = uc.userRepository.Update(ctx, *user)

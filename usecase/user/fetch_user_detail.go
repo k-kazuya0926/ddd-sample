@@ -40,7 +40,7 @@ func (uc *fetchUserDetailUseCase) Execute(input FetchUserDetailParam) (FetchUser
 		return FetchUserDetailDTO{}, err
 	}
 	if user == nil {
-		return FetchUserDetailDTO{}, fmt.Errorf("%w", usecase_error.NewUseCaseError("ユーザーが存在しません。"))
+		return FetchUserDetailDTO{}, fmt.Errorf("%w", usecase_error.UserNotFoundError)
 	}
 
 	return FetchUserDetailDTO{

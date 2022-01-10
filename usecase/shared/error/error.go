@@ -11,3 +11,9 @@ func NewUseCaseError(message string) UseCaseError {
 func (e UseCaseError) Error() string {
 	return e.message
 }
+
+var (
+	UserNotFoundError   = NewUseCaseError("ユーザーが存在しません。")
+	UserDuplicatedError = NewUseCaseError("ユーザーがすでに登録されています。")
+	TaskNotFoundError   = NewUseCaseError("タスクが存在しません。")
+)

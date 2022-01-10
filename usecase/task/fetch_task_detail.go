@@ -58,7 +58,7 @@ func (uc *fetchTaskDetailUseCase) Execute(input FetchTaskDetailParam) (FetchTask
 			return err
 		}
 		if task == nil {
-			return fmt.Errorf("%w", usecase_error.NewUseCaseError("タスクが存在しません。"))
+			return fmt.Errorf("%w", usecase_error.TaskNotFoundError)
 		}
 
 		user, err = uc.userRepository.FindByID(ctx, task.UserID())
